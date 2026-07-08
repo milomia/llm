@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres
+
+
+
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: advanceai
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - ./postgres_data:/var/lib/postgresql
+
+
+  weaviate1:
+    image: cr.weaviate.io/semitechnologies/weaviate:1.24.4
+    container_name: weaviate1
+    restart: always
+    depends_on:
+      - t2v-transformers
+    ports:
+      - '8999:8080'
+      - '50051:50051'
+    volumes:
+      - ./weaviate_data:/var/lib/weaviate
+    environment:
+      DEFAULT_VECTORIZER_MODULE: text2vec-transformers
+      ENABLE_MODULES: text2vec-transformers
+      TRANSFORMERS_INFERENCE_API: http://t2v-transformers:8080
+
+  t2v-transformers:
+    image: cr.weaviate.io/semitechnologies/transformers-inference:sentence-transformers-multi-qa-MiniLM-L6-cos-v1
+    ports:
+      - '8998:8080'
+    environment:
+      ENABLE_CUDA: 0
+      # Should be exposed through proxy later on, exposing currently directly for testing purposes
+
+
+volumes:
+  postgres_data:
+  weaviate_data:

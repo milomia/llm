@@ -1,0 +1,6 @@
+AZURE_OPENAI_API_KEY=762421eaaf9c4da08f59fa9995237d8e
+AZURE_OPENAI_ENDPOINT=https://westeurope.api.cognitive.microsoft.com
+OPENAI_API_VERSION=2025-01-01-preview
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME='llm-gpt-4-turbo
+password=admin@1234
+username=mike
