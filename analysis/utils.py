@@ -4,6 +4,7 @@ from pydantic_ai.providers.ollama import OllamaProvider
 from pydantic_ai.output import NativeOutput
 
 from analysis.aiService.constants import get_important_note
+from analysis.aiService.weaviateDb import fetch_top_k_nearest_content
 from analysis.models import StatementClassificationTypePrompt
 from analysis.outputParser import StatementParser, StatementParserWithoutOpening, StatementParserWithoutClosing, \
     StatementParserWithoutOpeningAndClosing
@@ -31,7 +32,25 @@ def create_overlapping_segments(text, seg_length, overlap):
     return segments
 
 
-def get_statements_data(part, total_parts):
+def get_similar_examples(category, segment_text, k_size=3, chunk_words=150, max_chunks=8):
+    """Look up reviewed correct/incorrect examples in Weaviate that resemble this segment.
+
+    The embedding model only sees a few hundred tokens, so the segment is sampled
+    in chunks and the closest matches across chunks are kept.
+    """
+    words = segment_text.split()
+    chunks = [" ".join(words[i:i + chunk_words]) for i in range(0, len(words), chunk_words)]
+    if len(chunks) > max_chunks:
+        step = len(chunks) / max_chunks
+        chunks = [chunks[int(i * step)] for i in range(max_chunks)]
+    if not chunks:
+        return [], []
+    correct = fetch_top_k_nearest_content(category + "_CORRECT_EXAMPLE", chunks, k_size)
+    incorrect = fetch_top_k_nearest_content(category + "_INCORRECT_EXAMPLE", chunks, k_size)
+    return [c for c, _ in correct], [c for c, _ in incorrect]
+
+
+def get_statements_data(part, total_parts, segment_text=None):
     statement_types = StatementClassificationTypePrompt.objects.filter(active=True).order_by("id")
     total_types = []
     final_prompt = ""
@@ -56,6 +75,18 @@ def get_statements_data(part, total_parts):
             f"the examples that doesn't belong to {statement_type.category} category: "
             f"###{statement_type.invalid_examples}### \n"
         )
+        if segment_text:
+            correct, incorrect = get_similar_examples(statement_type.category, segment_text)
+            if correct:
+                prompt_value += (
+                    f"\nreviewed examples similar to this transcript that DO belong to {statement_type.category}: "
+                    f"###{chr(10).join(correct)}### \n"
+                )
+            if incorrect:
+                prompt_value += (
+                    f"\nreviewed examples similar to this transcript that do NOT belong to {statement_type.category}: "
+                    f"###{chr(10).join(incorrect)}### \n"
+                )
         final_prompt += "'''" + str(prompt_value) + "'''"
 
     return total_types, final_prompt
