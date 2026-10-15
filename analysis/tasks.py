@@ -59,7 +59,7 @@ def classify_segments(transcription_id):
 
         # INITIAL_PROCESSING
         # Get all the statement category types
-        statement_type_considered, different_statement_definition = get_statements_data(index + 1, total_segments)
+        statement_type_considered, different_statement_definition = get_statements_data(index + 1, total_segments, segment)
         important_note, agent = get_important_note_and_parser(statement_type_considered, index + 1, total_segments)
 
         user_prompt = (
@@ -132,7 +132,7 @@ def classify_segments(transcription_id):
         segment_span.end()
     
     # End trace
-    trace.update(output={"status": "completed", "total_segments": total_segments})
+    trace.end(output={"status": "completed", "total_segments": total_segments})
     
     # After classification, the next task in the sequence is initiated:
     level_statements.delay(transcription.id)
@@ -227,7 +227,7 @@ def level_statements(transcription_id):
         category_span.end(output={"status": "completed", "statements_processed": len(statements)})
     
     # End trace
-    trace.update(output={"status": "completed"})
+    trace.end(output={"status": "completed"})
 
 
 
