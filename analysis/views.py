@@ -53,28 +53,24 @@ class ClassificationView(APIView):
         transcript_id = request.data['transcript_id']
         print(transcript_id)
 
-        """     
         # Create Langfuse trace for classification
         trace = create_trace(
             name="classification",
             session_id=str(transcript_id),
             metadata={"transcript_id": transcript_id}
         )
-        """
-        
+
         transcript = Transcription.objects.get(id=transcript_id)
 
         total_segments = len(transcript.segments)
 
         for index, segment in enumerate(transcript.segments):
 
-            """
             # Create span for segment processing
             segment_span = trace.span(
                 name=f"segment_{index + 1}",
                 metadata={"segment_index": index + 1, "total_segments": total_segments}
             )
-            """
 
             # Pre-process: strip HCP lines, keep only MSL turns
             msl_segment = extract_msl_statements(segment)
@@ -115,10 +111,8 @@ class ClassificationView(APIView):
                      "and outcome of each dialogue within the structured interaction framework.\n\n"
             )
 
-            """
             # Create span for AI agent call
             agent_span = segment_span.span(name="agent_classification")
-            """
 
             result = agent.run_sync(user_prompt.format(
                 transcript=msl_segment or segment,
@@ -160,7 +154,7 @@ class ClassificationView(APIView):
             segment_span.end()
 
         # End trace
-        trace.update(output={"status": "completed", "total_segments": total_segments})
+        trace.end(output={"status": "completed", "total_segments": total_segments})
         
         return Response({"message": "action is finished"}, status=status.HTTP_201_CREATED)
 
@@ -232,7 +226,7 @@ class VectorDataView(APIView):
         storeData(collection_name, statements)
         
         storage_span.end(output={"status": "stored", "collection": collection_name})
-        trace.update(output={"status": "completed"})
+        trace.end(output={"status": "completed"})
         
         return Response(
             {"message": "data has been stored in {collection_name}".format(collection_name=collection_name)},
@@ -349,7 +343,7 @@ class LevellingDataView(APIView):
             category_span.end(output={"status": "completed", "statements_processed": len(statements)})
 
         # End trace
-        trace.update(output={"status": "completed"})
+        trace.end(output={"status": "completed"})
         
         return Response(
             {"message": "done"},

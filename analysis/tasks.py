@@ -132,7 +132,7 @@ def classify_segments(transcription_id):
         segment_span.end()
     
     # End trace
-    trace.update(output={"status": "completed", "total_segments": total_segments})
+    trace.end(output={"status": "completed", "total_segments": total_segments})
     
     # After classification, the next task in the sequence is initiated:
     level_statements.delay(transcription.id)
@@ -227,7 +227,7 @@ def level_statements(transcription_id):
         category_span.end(output={"status": "completed", "statements_processed": len(statements)})
     
     # End trace
-    trace.update(output={"status": "completed"})
+    trace.end(output={"status": "completed"})
 
 
 

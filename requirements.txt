@@ -63,7 +63,7 @@ langchain==0.1.14
 langchain-community==0.0.31
 langchain-core==0.1.40
 langchain-text-splitters==0.0.1
-langfuse==2.53.1
+langfuse==4.13.1
 langsmith==0.1.41
 lomond==0.3.3
 marshmallow==3.21.1
