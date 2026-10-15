@@ -52,13 +52,15 @@ class ClassificationView(APIView):
     def post(self, request):
         transcript_id = request.data['transcript_id']
         print(transcript_id)
-        
+
+        """     
         # Create Langfuse trace for classification
         trace = create_trace(
             name="classification",
             session_id=str(transcript_id),
             metadata={"transcript_id": transcript_id}
         )
+        """
         
         transcript = Transcription.objects.get(id=transcript_id)
 
@@ -66,18 +68,20 @@ class ClassificationView(APIView):
 
         for index, segment in enumerate(transcript.segments):
 
+            """
             # Create span for segment processing
             segment_span = trace.span(
                 name=f"segment_{index + 1}",
                 metadata={"segment_index": index + 1, "total_segments": total_segments}
             )
+            """
 
             # Pre-process: strip HCP lines, keep only MSL turns
             msl_segment = extract_msl_statements(segment)
 
             # INITIAL_PROCESSING
             # Get all the statement category types
-            statement_type_considered, different_statement_definition = get_statements_data(index + 1, total_segments)
+            statement_type_considered, different_statement_definition = get_statements_data(index + 1, total_segments, msl_segment)
             important_note, agent = get_important_note_and_parser(statement_type_considered, index + 1, total_segments)
 
             # Build the prompt for pydantic_ai
@@ -111,9 +115,11 @@ class ClassificationView(APIView):
                      "and outcome of each dialogue within the structured interaction framework.\n\n"
             )
 
+            """
             # Create span for AI agent call
             agent_span = segment_span.span(name="agent_classification")
-            
+            """
+
             result = agent.run_sync(user_prompt.format(
                 transcript=msl_segment or segment,
                 different_statement_definition=different_statement_definition,
@@ -168,16 +174,30 @@ class TranscriptionView(APIView):
         # Desired segment length and overlap
         segment_length = 4000  # Adjusted due to example length; use 1200 for your full text
         overlap = 100
-        trans_obj = request.data
-        # Create overlapping segments
+
+        # Accept either an uploaded file (multipart "file") or JSON/form "text"
+        uploaded = request.FILES.get('file')
+        if uploaded:
+            try:
+                text = uploaded.read().decode('utf-8')
+            except UnicodeDecodeError:
+                return Response({"file": ["File must be UTF-8 encoded text."]}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            text = request.data.get('text')
+        if not text:
+            return Response({"text": ["Provide a 'text' field or upload a 'file'."]}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Plain dict: request.data is an immutable QueryDict for form/multipart requests
+        trans_obj = {'text': text}
         print(trans_obj)
-        trans_obj['segments'] = create_overlapping_segments(trans_obj['text'], segment_length, overlap)
+        # Create overlapping segments
+        segments = create_overlapping_segments(text, segment_length, overlap)
 
         serializer = TranscriptionSerializer(data=trans_obj)
 
         if serializer.is_valid():
             instance = serializer.save()
-            instance.segments = create_overlapping_segments(trans_obj['text'], segment_length, overlap)
+            instance.segments = segments
             instance.save()
             return Response({"transcript_id": instance.id, "number_of_segments": len(instance.segments)}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

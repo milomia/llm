@@ -18,7 +18,7 @@ services:
 
 
   weaviate1:
-    image: cr.weaviate.io/semitechnologies/weaviate:1.24.4
+    image: cr.weaviate.io/semitechnologies/weaviate:1.40.1
     container_name: weaviate1
     restart: always
     depends_on:

@@ -36,7 +36,11 @@ The system appears designed for pharmaceutical companies to analyze and improve 
 
 Feedback submitted
 
+Upload a transcription
 
+curl -X POST http://localhost:8000/api/transcription/ -F "file=@request.json" 
+
+which reads the transcript file request.json and puts it in the postgres database which can then be viewed in the django admin panel
 
 how do you call ClassificationView
 

@@ -59,7 +59,7 @@ def classify_segments(transcription_id):
 
         # INITIAL_PROCESSING
         # Get all the statement category types
-        statement_type_considered, different_statement_definition = get_statements_data(index + 1, total_segments)
+        statement_type_considered, different_statement_definition = get_statements_data(index + 1, total_segments, segment)
         important_note, agent = get_important_note_and_parser(statement_type_considered, index + 1, total_segments)
 
         user_prompt = (
