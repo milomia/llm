@@ -1,6 +1,5 @@
 from pydantic_ai import Agent
-from pydantic_ai.models.ollama import OllamaModel
-from pydantic_ai.providers.ollama import OllamaProvider
+from analysis.llm import get_llm_model
 from pydantic_ai.output import NativeOutput
 
 from analysis.aiService.constants import get_important_note
@@ -95,11 +94,8 @@ def get_statements_data(part, total_parts, segment_text=None):
 def get_important_note_and_parser(total_type_considered, segment, total_segments):
     important_note = get_important_note(not_included_statements="")
     
-    # Create pydantic_ai Agent with OllamaModel
-    model = OllamaModel(
-        'llama3',
-        provider=OllamaProvider(base_url='http://localhost:11434/v1')
-    )
+    # Create pydantic_ai Agent with the configured LLM model
+    model = get_llm_model()
     
     # Determine which parser model to use based on statement types
     if "OPENING" not in total_type_considered and "CLOSING_OUTCOME" not in total_type_considered:

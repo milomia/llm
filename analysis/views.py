@@ -16,8 +16,7 @@ from analysis.utils import create_overlapping_segments, get_statements_data, get
 from analysis.langfuse_client import create_trace
 
 from pydantic_ai import Agent
-from pydantic_ai.models.ollama import OllamaModel
-from pydantic_ai.providers.ollama import OllamaProvider
+from analysis.llm import get_llm_model
 from pydantic_ai.output import NativeOutput
 
 from .outputParser import EvaluationResult
@@ -267,11 +266,8 @@ class LevellingDataView(APIView):
                 category_span.end(output={"status": "skipped", "reason": "no prompt"})
                 continue
 
-            # Use pydantic_ai Agent with OllamaModel for structured output
-            model = OllamaModel(
-                'llama3',
-                provider=OllamaProvider(base_url='http://localhost:11434/v1')
-            )
+            # Use pydantic_ai Agent with the configured LLM model for structured output
+            model = get_llm_model()
             agent = Agent(model, output_type=NativeOutput(EvaluationResult))
 
             # Build the prompt for pydantic_ai

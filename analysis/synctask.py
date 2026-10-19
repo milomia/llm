@@ -1,9 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
 from pydantic_ai import Agent
-from pydantic_ai.models.ollama import OllamaModel
 from pydantic_ai.output import NativeOutput
-from pydantic_ai.providers.ollama import OllamaProvider
+from analysis.llm import get_llm_model
 
 from .models import Transcription, StatementClassification, StatementLevelPrompt, FinalStatementWithLevel
 from .serializers import TranscriptionSerializer
@@ -127,10 +126,7 @@ def sync_level_statements(transcription_id):
                            "Return data matching this shape exactly:\n"
                            "{{\"statements\":[{{\"id\":1,\"level\":1,\"confidence_score\":90,\"reason\":\"short reason\"}}]}}\n"
         )
-        model = OllamaModel(
-            'llama3',
-            provider=OllamaProvider(base_url='http://localhost:11434/v1')
-        )
+        model = get_llm_model()
         agent = Agent(model, output_type=NativeOutput(EvaluationResult))
         result = agent.run_sync(user_prompt.format(
             statements=statements,
