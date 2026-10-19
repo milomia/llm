@@ -4,3 +4,9 @@ OPENAI_API_VERSION=2025-01-01-preview
 AZURE_OPENAI_CHAT_DEPLOYMENT_NAME='llm-gpt-4-turbo
 password=admin@1234
 username=mike
+
+# LLM provider: ollama (default) or bedrock
+LLM_PROVIDER=ollama
+# Bedrock (uses standard AWS credentials: AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / AWS_PROFILE)
+AWS_REGION=us-east-1
+BEDROCK_MODEL_ID=us.anthropic.claude-haiku-4-5-20251001-v1:0

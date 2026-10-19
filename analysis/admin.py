@@ -36,8 +36,8 @@ class TranscriptionAdmin(admin.ModelAdmin):
 
 @admin.register(StatementClassification)
 class ClassificationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'transcription_id', 'segment_number', 'category', 'statement', 'levelDone')
-    list_filter = ('category', 'segment_number')
+    list_display = ('id', 'transcription_id', 'segment_number', 'category', 'statement', 'levelDone', 'sentimentDone', 'hcp_sentiment', 'hcp_sentiment_confidence')
+    list_filter = ('category', 'segment_number', 'hcp_sentiment', 'sentimentDone')
     search_fields = ('category', 'transcription__id')
     actions = [push_to_right_classification, push_to_wrong_classification]
 

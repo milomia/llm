@@ -6,25 +6,35 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.db.models import Max
 from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import OpenApiResponse, extend_schema
+
+from analysis import api_schemas
 
 from analysis.aiService.weaviateDb import storeData
 from analysis.serializers import TranscriptionSerializer
 from analysis.models import Transcription, StatementClassification, StatementLevelPrompt, FinalStatementWithLevel
-from analysis.utils import create_overlapping_segments, get_statements_data, get_important_note_and_parser
+from analysis.utils import create_overlapping_segments, get_statements_data, get_important_note_and_parser, \
+    clear_previous_results
 from analysis.langfuse_client import create_trace
 
 from pydantic_ai import Agent
-from pydantic_ai.models.ollama import OllamaModel
-from pydantic_ai.providers.ollama import OllamaProvider
+from analysis.llm import get_llm_model, make_agent
 from pydantic_ai.output import NativeOutput
 
 from .outputParser import EvaluationResult
 from .synctask import sync_classify_segments
 from .tasks import save_transcription, classify_segments
+from .levelling import level_category
+from .sentiment import analyze_sentiment, get_sentiment_results
 
 load_dotenv()
+
+# DRF validation errors: {"<field>": ["<message>", ...]}
+VALIDATION_ERROR = OpenApiResponse(OpenApiTypes.OBJECT, description="Invalid input; maps each field to its error messages.")
 
 
 def extract_msl_statements(transcript):
@@ -48,10 +58,24 @@ def extract_msl_statements(transcript):
 
 class ClassificationView(APIView):
 
-
+    @extend_schema(
+        summary="Classify a transcript's statements (stage 1)",
+        description="Runs every segment of the transcript through the classification agent and saves "
+                    "StatementClassification records. Blocks until all segments are done.",
+        request=api_schemas.TranscriptIdRequest,
+        responses={201: api_schemas.MessageResponse},
+        tags=["pipeline"],
+    )
     def post(self, request):
         transcript_id = request.data['transcript_id']
         print(transcript_id)
+
+        try:
+            transcript = Transcription.objects.get(id=transcript_id)
+        except Transcription.DoesNotExist:
+            return Response({"error": f"Transcription {transcript_id} not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        clear_previous_results(transcript)
 
         # Create Langfuse trace for classification
         trace = create_trace(
@@ -59,8 +83,6 @@ class ClassificationView(APIView):
             session_id=str(transcript_id),
             metadata={"transcript_id": transcript_id}
         )
-
-        transcript = Transcription.objects.get(id=transcript_id)
 
         total_segments = len(transcript.segments)
 
@@ -160,10 +182,27 @@ class ClassificationView(APIView):
 
 class TranscriptionView(APIView):
 
+    @extend_schema(
+        summary="List pending transcripts",
+        description="Transcripts whose results haven't been fetched yet (docker_feteched=False).",
+        responses={200: api_schemas.PendingTranscriptsResponse},
+        tags=["transcripts"],
+    )
     def get(self, request):
         transcripts = Transcription.objects.filter(docker_feteched=False)
         return Response({"pending_transcript": [transcript.id for transcript in transcripts]}, status=status.HTTP_200_OK)
 
+    @extend_schema(
+        summary="Upload a transcript",
+        description="Send the transcript as a multipart `file` upload, or as `text` (JSON or form). "
+                    "The text is split into overlapping segments and saved.",
+        request={
+            "multipart/form-data": api_schemas.TranscriptUploadRequest,
+            "application/json": api_schemas.TranscriptTextRequest,
+        },
+        responses={201: api_schemas.TranscriptCreatedResponse, 400: VALIDATION_ERROR},
+        tags=["transcripts"],
+    )
     def post(self, request):
         # Desired segment length and overlap
         segment_length = 4000  # Adjusted due to example length; use 1200 for your full text
@@ -204,9 +243,18 @@ def transcription_status_update(request, transcript_id):
 
 class VectorDataView(APIView):
 
+    @extend_schema(exclude=True)  # not implemented
     def get(self, request):
         pass
 
+    @extend_schema(
+        summary="Store example statements in Weaviate",
+        description="Adds statements to a Weaviate collection (created if missing). These are the reviewed "
+                    "examples retrieved into the classification prompt.",
+        request=api_schemas.VectorStoreRequest,
+        responses={201: api_schemas.MessageResponse},
+        tags=["examples"],
+    )
     def post(self, request):
         statements = request.data['statements']
         collection_name = request.data['collection_name']
@@ -235,18 +283,29 @@ class VectorDataView(APIView):
 
 class LevellingDataView(APIView):
 
+    @extend_schema(
+        summary="Level classified statements (stage 2)",
+        description="Assigns a level (1-4) and confidence score to each classified statement and saves "
+                    "FinalStatementWithLevel records. Run after classification.",
+        request=api_schemas.TranscriptIdRequest,
+        responses={200: api_schemas.MessageResponse},
+        tags=["pipeline"],
+    )
     def post(self, request):
         transcript_id = request.data['transcript_id']
         print(transcript_id)
         
+        try:
+            transcript = Transcription.objects.get(id=transcript_id)
+        except Transcription.DoesNotExist:
+            return Response({"error": f"Transcription {transcript_id} not found"}, status=status.HTTP_404_NOT_FOUND)
+
         # Create Langfuse trace for levelling
         trace = create_trace(
             name="levelling",
             session_id=str(transcript_id),
             metadata={"transcript_id": transcript_id}
         )
-        
-        transcript = Transcription.objects.get(id=transcript_id)
         sentences = transcript.statementclassification_set.all()
 
         for category in ['OPENING', 'QUESTIONING', 'PRESENTING', 'CLOSING_OUTCOME']:
@@ -267,80 +326,11 @@ class LevellingDataView(APIView):
                 category_span.end(output={"status": "skipped", "reason": "no prompt"})
                 continue
 
-            # Use pydantic_ai Agent with OllamaModel for structured output
-            model = OllamaModel(
-                'llama3',
-                provider=OllamaProvider(base_url='http://localhost:11434/v1')
-            )
-            agent = Agent(model, output_type=NativeOutput(EvaluationResult))
-
-            # Build the prompt for pydantic_ai
-            user_prompt = (
-                category + " statements: \n{statements}\n\n"
-                           "Objective: !!!{objective}!!!\n\n"
-                           "Evaluation Criteria:\n ###{evaluation_criteria}###\n\n"
-                           "Score assignment criteria:\n ###{score_assignment_criteria}###\n\n"
-                           "Instruction:\n ###{instruction}###\n\n"
-                           "Examples:\n ###{examples}###\n\n"
-                           "notes:\n ###{notes}###\n\n"
-                           "CRITICAL: For EVERY statement you MUST provide:\n"
-                           "- level: integer 1-4 based on score assignment criteria\n"
-                           "- confidence_score: integer 0-100 representing how certain you are about YOUR level assignment. "
-                           "This is NOT the quality score — it is YOUR confidence in the level you assigned. "
-                           "A level 1 statement can still have confidence_score of 90 if you are certain it is level 1.\n"
-                           "- reason: max 1 line explaining the level assignment\n\n"
-                           "Return data matching this shape exactly:\n"
-                           "{{\"statements\":[{{\"id\":1,\"level\":1,\"confidence_score\":90,\"reason\":\"short reason\"}}]}}\n"
-            )
-
-            # Create span for AI agent call
-            agent_span = category_span.span(name="agent_levelling")
-            
-            result = agent.run_sync(user_prompt.format(
-                statements=statements,
-                objective=statement_level_obj.objective,
-                evaluation_criteria=statement_level_obj.evaluation_criteria,
-                score_assignment_criteria=statement_level_obj.score_assignment_criteria,
-                instruction=statement_level_obj.instruction,
-                examples=statement_level_obj.examples,
-                notes=statement_level_obj.notes
-            ))
-            response = result.output
-            print(response)
-            
-            # Log agent call details
-            agent_span.end(
-                output=str(response),
-                metadata={
-                    "category": category,
-                    "num_statements": len(statements)
-                }
-            )
-
-            print("RAW RESPONSE:")
-            for s in response.statements:
-                print(f"  id={s.id} level={s.level} confidence={s.confidence_score} reason={s.reason[:50]}")
-
-            for scored_statement in response.statements:
-                try:
-                    statement_obj = StatementClassification.objects.get(id=scored_statement.id)
-                except StatementClassification.DoesNotExist:
-                    continue
-                final_statement = FinalStatementWithLevel(
-                    transcription=statement_obj.transcription,
-                    category=category,
-                    statement=statement_obj.statement,
-                    level=scored_statement.level,
-                    confidence_score=scored_statement.confidence_score,
-                    reason_for_level=scored_statement.reason
-                )
-                final_statement.save()
-                print(final_statement)
-
-            classification_statements.update(levelDone=True)
+            unscored = level_category(category, transcript, statement_level_obj, parent_span=category_span)
             
             # End category span
-            category_span.end(output={"status": "completed", "statements_processed": len(statements)})
+            category_span.end(output={"status": "completed", "statements_processed": len(statements) - len(unscored),
+                                      "unscored": unscored})
 
         # End trace
         trace.end(output={"status": "completed"})
@@ -350,6 +340,35 @@ class LevellingDataView(APIView):
             status=status.HTTP_200_OK
         )
     
+class SentimentView(APIView):
+    @extend_schema(
+        summary="Analyse HCP sentiment (stage 3)",
+        description="Labels the HCP's reaction (positive / neutral / negative / no_response) to each classified "
+                    "REP statement. Only statements not yet analysed are processed, so it is safe to re-run.",
+        request=api_schemas.TranscriptIdRequest,
+        responses={200: api_schemas.SentimentResultResponse, 404: OpenApiResponse(description="Unknown transcript")},
+        tags=["pipeline"],
+    )
+    def post(self, request):
+        transcript_id = request.data['transcript_id']
+        if not Transcription.objects.filter(id=transcript_id).exists():
+            return Response({"error": "Transcript not found"}, status=status.HTTP_404_NOT_FOUND)
+        analyze_sentiment(transcript_id)
+        return Response(get_sentiment_results(transcript_id))
+
+
+@extend_schema(
+    summary="Get HCP sentiment results",
+    responses={200: api_schemas.SentimentResultResponse, 404: OpenApiResponse(description="Unknown transcript")},
+    tags=["results"],
+)
+@api_view(['GET'])
+def sentiment_results(request, transcript_id):
+    if not Transcription.objects.filter(id=transcript_id).exists():
+        return Response({"error": "Transcript not found"}, status=status.HTTP_404_NOT_FOUND)
+    return Response(get_sentiment_results(transcript_id))
+
+
 @csrf_exempt
 def highest_level_statements(request, transcript_id):
     categories = ['OPENING', 'QUESTIONING', 'PRESENTING', 'CLOSING', 'OUTCOME']
@@ -376,6 +395,14 @@ def highest_level_statements_docker_results(request, transcript_id):
 
 
 class FullProcessView(APIView):
+    @extend_schema(
+        summary="Upload and process a transcript (async)",
+        description="Saves the transcript and queues classification then levelling on Celery. "
+                    "Returns immediately; poll /api/transcription/ or fetch /api/docker-results/{id}/ later.",
+        request=api_schemas.TranscriptTextRequest,
+        responses={202: api_schemas.TranscriptCreatedResponse, 400: VALIDATION_ERROR},
+        tags=["pipeline"],
+    )
     def post(self, request):
         segment_length = 6000  # Adjust as needed
         overlap = 100  # Adjust as needed
@@ -524,6 +551,14 @@ def getDockerOutput(transcript_id):
     return responseDict
 
 class FullSyncProcessView(APIView):
+    @extend_schema(
+        summary="Upload and process a transcript (sync)",
+        description="Runs classification and levelling in the request and returns the full result. "
+                    "Can take minutes for long transcripts.",
+        request=api_schemas.TranscriptTextRequest,
+        responses={200: api_schemas.PipelineResultResponse, 400: VALIDATION_ERROR},
+        tags=["pipeline"],
+    )
     def post(self, request):
         segment_length = 6000  # Adjust as needed
         overlap = 100  # Adjust as needed

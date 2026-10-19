@@ -35,6 +35,7 @@ services:
 
   t2v-transformers:
     image: cr.weaviate.io/semitechnologies/transformers-inference:sentence-transformers-multi-qa-MiniLM-L6-cos-v1
+    restart: always
     ports:
       - '8998:8080'
     environment:

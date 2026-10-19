@@ -2,15 +2,16 @@ from __future__ import absolute_import, unicode_literals
 
 from celery import shared_task
 from pydantic_ai import Agent
-from pydantic_ai.models.ollama import OllamaModel
 from pydantic_ai.output import NativeOutput
-from pydantic_ai.providers.ollama import OllamaProvider
+from analysis.llm import get_llm_model, make_agent
 
 from .models import Transcription, StatementClassification, StatementLevelPrompt, FinalStatementWithLevel
 from .serializers import TranscriptionSerializer
-from .utils import create_overlapping_segments, get_statements_data, get_important_note_and_parser
+from .utils import create_overlapping_segments, get_statements_data, get_important_note_and_parser, clear_previous_results
 from .outputParser import EvaluationResult
 from .langfuse_client import create_trace
+from .levelling import level_category
+from .sentiment import analyze_sentiment
 
 
 # Include the necessary modules and functions such as
@@ -45,6 +46,7 @@ def classify_segments(transcription_id):
     
     # Same logic as we have built in the API code earlier
     transcription = Transcription.objects.get(id=transcription_id)
+    clear_previous_results(transcription)
     total_segments = len(transcription.segments)
 
     for index, segment in enumerate(transcription.segments):
@@ -149,9 +151,9 @@ def level_statements(transcription_id):
     )
     
     # Use structured pydantic_ai output to level statements and save the results.
-    transcript = Transcription.objects.get(id=transcription_id)
+    transcription = Transcription.objects.get(id=transcription_id)
 
-    sentences = transcript.statementclassification_set.all()
+    sentences = transcription.statementclassification_set.all()
     for category in ['OPENING', 'QUESTIONING', 'PRESENTING', 'CLOSING_OUTCOME']:
         # Create span for category processing
         category_span = trace.span(name=f"category_{category}")
@@ -162,73 +164,20 @@ def level_statements(transcription_id):
         if len(statements) == 0 or not statement_level_obj:
             category_span.end(output={"status": "skipped", "reason": "no statements or no prompt"})
             continue
-        user_prompt = (
-                category + " statements: \n{statements}\n\n"
-                           "Objective: !!!{objective}!!!\n\n"
-                           "Evaluation Criteria:\n ###{evaluation_criteria}###\n\n"
-                           "Score assignment criteria:\n ###{score_assignment_criteria}###\n\n"
-                           "Instruction:\n ###{instruction}###\n\n"
-                           "Examples:\n ###{examples}###\n\n"
-                           "notes:\n ###{notes}###\n\n"
-                           "CRITICAL: For EVERY statement you MUST provide:\n"
-                           "- level: integer 1-4 based on score assignment criteria\n"
-                           "- confidence_score: integer 0-100 representing how certain you are about YOUR level assignment.\n"
-                           "- reason: max 1 line explaining the level assignment\n\n"
-                           "Return data matching this shape exactly:\n"
-                           "{{\"statements\":[{{\"id\":1,\"level\":1,\"confidence_score\":90,\"reason\":\"short reason\"}}]}}\n"
-        )
-        model = OllamaModel(
-            'llama3',
-            provider=OllamaProvider(base_url='http://localhost:11434/v1')
-        )
-        agent = Agent(model, output_type=NativeOutput(EvaluationResult))
-        
-        # Create span for AI agent call
-        agent_span = category_span.span(name="agent_levelling")
-        
-        result = agent.run_sync(user_prompt.format(
-            statements=statements,
-            objective=statement_level_obj.objective,
-            evaluation_criteria=statement_level_obj.evaluation_criteria,
-            score_assignment_criteria=statement_level_obj.score_assignment_criteria,
-            instruction=statement_level_obj.instruction,
-            examples=statement_level_obj.examples,
-            notes=statement_level_obj.notes
-        ))
-        response = result.output
-        print(response)
-        
-        # Log agent call details
-        agent_span.end(
-            output=str(response),
-            metadata={
-                "category": category,
-                "num_statements": len(statements)
-            }
-        )
-
-        for scored_statement in response.statements:
-            print(scored_statement)
-            statement_obj = StatementClassification.objects.get(id=scored_statement.id)
-            final_statement = FinalStatementWithLevel(
-                transcription=statement_obj.transcription,
-                category=category,
-                statement=statement_obj.statement,
-                level=scored_statement.level,
-                confidence_score=scored_statement.confidence_score,
-                reason_for_level=scored_statement.reason
-            )
-            final_statement.save()
-
-            print(final_statement)
-        classification_statements.update(levelDone=True)
+        unscored = level_category(category, transcription, statement_level_obj, parent_span=category_span)
         
         # End category span
-        category_span.end(output={"status": "completed", "statements_processed": len(statements)})
+        category_span.end(output={"status": "completed", "statements_processed": len(statements) - len(unscored),
+                                  "unscored": unscored})
     
     # End trace
     trace.end(output={"status": "completed"})
+    analyze_sentiment_task.delay(transcription_id)
 
+
+@shared_task
+def analyze_sentiment_task(transcription_id):
+    analyze_sentiment(transcription_id)
 
 
 # Invoke this from the APIView as before
