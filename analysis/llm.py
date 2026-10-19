@@ -27,3 +27,25 @@ def get_llm_model() -> Model:
         os.getenv('OLLAMA_MODEL', 'llama3'),
         provider=OllamaProvider(base_url=os.getenv('OLLAMA_BASE_URL', 'http://localhost:11434/v1')),
     )
+
+
+def get_model_settings() -> dict:
+    """Deterministic sampling for every pipeline stage. Bedrock has no seed parameter, so only Ollama gets one."""
+    settings = {'temperature': 0}
+    if os.getenv('LLM_PROVIDER', 'ollama').lower() != 'bedrock':
+        settings['seed'] = int(os.getenv('LLM_SEED', '42'))
+    return settings
+
+
+def make_agent(output_type):
+    """Build a pipeline agent: deterministic settings, and output-validation retries so a response
+    that is missing required fields is re-requested instead of failing or being silently defaulted."""
+    from pydantic_ai import Agent
+    from pydantic_ai.output import NativeOutput
+
+    return Agent(
+        get_llm_model(),
+        output_type=NativeOutput(output_type),
+        model_settings=get_model_settings(),
+        retries=int(os.getenv('LLM_RETRIES', '3')),
+    )

@@ -1,4 +1,4 @@
-from typing import List, Dict, Optional
+from typing import List, Dict, Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -49,10 +49,24 @@ class StatementParserWithoutOpeningAndClosing(BaseModel):
 
 class StatementLevelModel(BaseModel):
     id: int = Field(description="the ID of the statement exactly as provided in the input")
-    level: Optional[int] = Field(default=0, description="assigned level between 1 and 4, where 1 is lowest and 4 is highest")
-    confidence_score: Optional[int] = Field(default=0, description="integer between 0 and 100 representing how confident you are in your level assignment. Must be an integer, never null.")
+    level: int = Field(ge=1, le=4, description="assigned level between 1 and 4, where 1 is lowest and 4 is highest")
+    confidence_score: int = Field(ge=0, le=100, description="integer between 0 and 100 representing how confident you are in your level assignment. Must be an integer, never null.")
     reason: str = Field(description="reason for your evaluation in max 1 line")
 
 
 class EvaluationResult(BaseModel):
     statements: List[StatementLevelModel] = Field(..., description="A list of statement level Model")
+
+
+
+class StatementSentimentModel(BaseModel):
+    id: int = Field(description="the ID of the REP statement exactly as provided in the input")
+    sentiment: Literal['positive', 'neutral', 'negative', 'no_response'] = Field(
+        description="sentiment of the HCP's immediate reaction to this REP statement; "
+                    "'no_response' if the HCP does not react to it in the transcript")
+    confidence_score: int = Field(ge=0, le=100, description="integer between 0 and 100. Required, must be an integer, never null.")
+    reason: str = Field(description="reason for the sentiment in max 1 line")
+
+
+class SentimentResult(BaseModel):
+    statements: List[StatementSentimentModel] = Field(..., description="A list of statement sentiments")

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_spectacular',
     'analysis'
 ]
 
@@ -158,3 +159,15 @@ CELERY_TIMEZONE = 'UTC'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# OpenAPI schema generation (drf-spectacular): /api/schema/, /api/docs/, /api/redoc/
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Milomia Transcript Analysis API',
+    'DESCRIPTION': 'Upload MSL/REP call transcripts, classify statements and assign levels.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}

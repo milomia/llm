@@ -1,10 +1,10 @@
 from pydantic_ai import Agent
-from analysis.llm import get_llm_model
+from analysis.llm import get_llm_model, make_agent
 from pydantic_ai.output import NativeOutput
 
 from analysis.aiService.constants import get_important_note
 from analysis.aiService.weaviateDb import fetch_top_k_nearest_content
-from analysis.models import StatementClassificationTypePrompt
+from analysis.models import StatementClassificationTypePrompt, StatementClassification, FinalStatementWithLevel
 from analysis.outputParser import StatementParser, StatementParserWithoutOpening, StatementParserWithoutClosing, \
     StatementParserWithoutOpeningAndClosing
 
@@ -99,15 +99,22 @@ def get_important_note_and_parser(total_type_considered, segment, total_segments
     
     # Determine which parser model to use based on statement types
     if "OPENING" not in total_type_considered and "CLOSING_OUTCOME" not in total_type_considered:
-        agent = Agent(model, output_type=NativeOutput(StatementParserWithoutOpeningAndClosing))
+        agent = make_agent(StatementParserWithoutOpeningAndClosing)
         important_note = get_important_note(not_included_statements="EXTREME_END")
     elif "OPENING" not in total_type_considered:
-        agent = Agent(model, output_type=NativeOutput(StatementParserWithoutOpening))
+        agent = make_agent(StatementParserWithoutOpening)
         important_note = get_important_note(not_included_statements="OPENING")
     elif "CLOSING_OUTCOME" not in total_type_considered:
-        agent = Agent(model, output_type=NativeOutput(StatementParserWithoutClosing))
+        agent = make_agent(StatementParserWithoutClosing)
         important_note = get_important_note(not_included_statements="CLOSING")
     else:
-        agent = Agent(model, output_type=NativeOutput(StatementParser))
+        agent = make_agent(StatementParser)
 
     return important_note, agent
+
+
+def clear_previous_results(transcription):
+    """Re-classifying a transcript replaces its earlier results instead of piling duplicates on top.
+    Levels and sentiment are derived from the classified rows, so they are cleared with them."""
+    FinalStatementWithLevel.objects.filter(transcription=transcription).delete()
+    StatementClassification.objects.filter(transcription=transcription).delete()
