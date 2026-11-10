@@ -36,7 +36,16 @@ python manage.py shell
 ```bash
 python manage.py test analysis
 ```
-Tests live in `analysis/tests.py`. Use the Django runner: `pytest.ini` points at a non-existent `core.settings`.
+Unit tests live in `analysis/tests.py`; endpoint tests in `analysis/test_endpoints.py` (driven by `data/request.json`, with the LLM, Weaviate, Celery and Langfuse faked). Use the Django runner: `pytest.ini` points at a non-existent `core.settings`.
+
+### Eval
+```bash
+python manage.py run_eval                              # configured model, all reference cases
+python manage.py run_eval --model qwen3:4b-instruct --limit 3
+```
+Runs classification and levelling on the transcripts in `eval/reference.json` with the real pipeline code and prints precision / recall / F1 per category, the share of verbatim quotes, and level agreement. It runs inside a rolled-back transaction, so the database is untouched; a JSON report goes to `eval/reports/` (gitignored). Options: `--stages`, `--max-tokens`, `--reference`, `--output`.
+
+The reference cases were built from 2024 pipeline output in `data/data.json` and are **not human-reviewed** (`"reviewed": false`); scores measure agreement with that earlier output until cases are corrected and flagged reviewed. Scoring logic is in `analysis/evaluation.py`.
 
 ### API docs
 With the server running, the OpenAPI schema is at `/api/schema/`, Swagger UI at `/api/docs/`, ReDoc at `/api/redoc/` (drf-spectacular; per-view schemas in `analysis/api_schemas.py`).
@@ -59,6 +68,7 @@ With the server running, the OpenAPI schema is at `/api/schema/`, Swagger UI at 
 - `OLLAMA_MODEL` (default `llama3`), `OLLAMA_BASE_URL` (default `http://localhost:11434/v1`)
 - `BEDROCK_MODEL_ID` (default `us.anthropic.claude-haiku-4-5-20251001-v1:0`), `AWS_REGION` (default `us-east-1`)
 - `LLM_SEED` (default `42`, Ollama only — Bedrock has no seed), `LLM_RETRIES` (default `3`, output-validation retries)
+- `LLM_MAX_TOKENS` (unset by default) — cap on each response's length. Without it a local model that starts repeating itself generates until the 10-minute request timeout; `run_eval` always sets it
 
 WatsonX vars (`WATSONX_APIKEY`, `PROJECT_ID`, `IBM_WATSONX_URL`) in `.envold` and the Azure OpenAI vars in `env.sample` are unused.
 
@@ -68,7 +78,7 @@ WatsonX vars (`WATSONX_APIKEY`, `PROJECT_ID`, `IBM_WATSONX_URL`) in `.envold` an
 
 Every transcript goes through three sequential LLM stages. All agents are built with `make_agent()` in `analysis/llm.py`: provider from `get_llm_model()`, temperature 0, fixed seed (Ollama), and `NativeOutput` structured output with validation retries.
 
-**Stage 1 — Classification** (`ClassificationView`, `classify_segments` task, `sync_classify_segments`):
+**Stage 1 — Classification** (`ClassificationView`, `classify_segments` task, `sync_classify_segments`; shared logic in `classify_transcription()` in `analysis/classification.py`):
 - `clear_previous_results()` (`analysis/utils.py`) first deletes the transcript's earlier results, so re-running replaces rather than duplicates
 - Transcript is split into overlapping segments (6000 words, 100-word overlap) via `create_overlapping_segments`
 - For each active category, `get_similar_examples()` pulls the nearest reviewed `<CATEGORY>_CORRECT_EXAMPLE` / `<CATEGORY>_INCORRECT_EXAMPLE` entries from Weaviate and adds them to the prompt
@@ -130,6 +140,8 @@ The hardcoded constants in `analysis/aiService/constants.py` are the domain defi
 | `analysis/llm.py` | LLM provider selection and `make_agent()` |
 | `analysis/levelling.py` | Shared levelling logic |
 | `analysis/sentiment.py` | Stage 3 HCP sentiment |
+| `analysis/classification.py` | Shared stage 1 classification (`classify_transcription()`) |
+| `analysis/evaluation.py` | Eval scoring; run via `analysis/management/commands/run_eval.py` |
 | `analysis/utils.py` | Segment creation, prompt/parser selection, Weaviate example lookup, result clearing |
 | `analysis/outputParser.py` | Pydantic models for structured LLM output |
 | `analysis/api_schemas.py` | OpenAPI schema definitions |

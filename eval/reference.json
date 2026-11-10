@@ -1,0 +1,1455 @@
+{
+  "description": "Reference set for `python manage.py run_eval`. Each case is a transcript with the statements expected in each category and the expected level of each statement.",
+  "source": "Built from data/data.json: the most recent complete pipeline run (May-June 2024) for each distinct transcript of 850 words or fewer. These are earlier model outputs, NOT human-reviewed labels. Correct a case and set its \"reviewed\" flag to true to turn it into ground truth. Levels are included for OPENING, QUESTIONING and PRESENTING only, because closing and outcome were levelled separately in 2024.",
+  "cases": [
+    {
+      "id": "transcript-49",
+      "reviewed": false,
+      "text": "Speaker 0 00:00:00 Dieser Anruf wird aufgezeichnet Speaker 1 00:00:02 Gut Frau Dr Knebel vielen Dank dass Sie fr mich Zeit haben Es geht um die Bempidoinsure Spielt das bei Ihnen eine Rolle dass Sie das selbst auch einstellen bei Patienten Speaker 0 00:00:15 Ja Also ich habe glaube ich drei Patienten die damit laufen Speaker 1 00:00:20 Ah drei Patienten Und sind Sie da zufrieden von der Zielwertsenkung Ja Ah super Denn der Zielpatient ist ja auch der Hochrisikopatient oder der KAKPatient weil er davon eigentlich super profitiert in Form dass die Studien einfach dann so gelegt worden sind dass dann auch die kardiovaskulren Ereignisse dann reduziert worden sind Schicken Sie die meisten Patienten dann eher zum Lipidologen weil Sie sagten Sie haben nur drei Patienten die da laufen oder gehen die dann eher zum Speaker 0 00:00:57 Ja so viele sind es ja nicht die man mit anderen Mitteln nicht in den Zielwert kriegt Speaker 1 00:01:01 Ah okay Alles klar Dann haben Sie das ganz gut im Griff mit Statinen und Izedemib Ja Speaker 0 00:01:06 Ah Speaker 1 00:01:07 Okay Sie haben praktisch ja das ist einfach dann nur eine Therapieoption die Bempidoinsure bevor man diese teuren PCSK9Membranen nimmt Genau Super Alles klar Ich hatte versprochen das nicht so lange zu machen Ich werde das jetzt auch einhalten Dann bedanke ich mich fr das kleine Gesprch Ich werde uns dandy Und ja ich hoffe dass Sie weiterhin das Ganze auch vielleicht auch Neupatienten einstellen Und dann bedanke ich mich und fr einen schnen Tag noch Speaker 0 00:01:42 Ja gleichfalls Wiederhren Speaker 1 00:01:43 Ja haben Sie Vielen Dank Ja tschss",
+      "statements": {
+        "OPENING": [
+          "Dieser Anruf wird aufgezeichnet",
+          "Gut Frau Dr Knebel vielen Dank dass Sie fr mich Zeit haben Es geht um die Bempidoinsure Spielt das bei Ihnen eine Rolle dass Sie das selbst auch einstellen bei Patienten"
+        ],
+        "QUESTIONING": [
+          "Und sind Sie da zufrieden von der Zielwertsenkung",
+          "Schicken Sie die meisten Patienten dann eher zum Lipidologen weil Sie sagten Sie haben nur drei Patienten die da laufen oder gehen die dann eher zum"
+        ],
+        "PRESENTING": [
+          "Ja Also ich habe glaube ich drei Patienten die damit laufen",
+          "Ah drei Patienten",
+          "Ja Ah super Denn der Zielpatient ist ja auch der Hochrisikopatient oder der KAKPatient weil er davon eigentlich super profitiert in Form dass die Studien einfach dann so gelegt worden sind dass dann auch die kardiovaskulren Ereignisse dann reduziert worden sind",
+          "Ja so viele sind es ja nicht die man mit anderen Mitteln nicht in den Zielwert kriegt",
+          "Ah okay Alles klar Dann haben Sie das ganz gut im Griff mit Statinen und Izedemib Ja",
+          "Ah",
+          "Okay Sie haben praktisch ja das ist einfach dann nur eine Therapieoption die Bempidoinsure bevor man diese teuren PCSK9Membranen nimmt Genau Super Alles klar"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Ich hatte versprochen das nicht so lange zu machen Ich werde das jetzt auch einhalten Dann bedanke ich mich fr das kleine Gesprch Ich werde uns dandy Und ja ich hoffe dass Sie weiterhin das Ganze auch vielleicht auch Neupatienten einstellen Und dann bedanke ich mich und fr einen schnen Tag noch', 'outcome_statement': 'Ja gleichfalls Wiederhren'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Dieser Anruf wird aufgezeichnet",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Gut Frau Dr Knebel vielen Dank dass Sie fr mich Zeit haben Es geht um die Bempidoinsure Spielt das bei Ihnen eine Rolle dass Sie das selbst auch einstellen bei Patienten",
+          "level": 3
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Und sind Sie da zufrieden von der Zielwertsenkung",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Schicken Sie die meisten Patienten dann eher zum Lipidologen weil Sie sagten Sie haben nur drei Patienten die da laufen oder gehen die dann eher zum",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Ja Also ich habe glaube ich drei Patienten die damit laufen",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Ah drei Patienten",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Ja Ah super Denn der Zielpatient ist ja auch der Hochrisikopatient oder der KAKPatient weil er davon eigentlich super profitiert in Form dass die Studien einfach dann so gelegt worden sind dass dann auch die kardiovaskulren Ereignisse dann reduziert worden sind",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Ja so viele sind es ja nicht die man mit anderen Mitteln nicht in den Zielwert kriegt",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Ah okay Alles klar Dann haben Sie das ganz gut im Griff mit Statinen und Izedemib Ja",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Ah",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Okay Sie haben praktisch ja das ist einfach dann nur eine Therapieoption die Bempidoinsure bevor man diese teuren PCSK9Membranen nimmt Genau Super Alles klar",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "transcript-48",
+      "reviewed": false,
+      "text": "Speaker 0 00:00:00 Dieser Anruf wird aufgezeichnet Speaker 1 00:00:02 Ja danke fr Ihre Zeit Und die Bempidoinsure das Nostendium Nilemdo spielt ja immer eine grere Rolle bei DL Keine Speaker 0 00:00:11 Groe aber es spielt eine Rolle Also ich habe es schon in der Verordnung aber keine groe Rolle spielt es Keine groe Bis jetzt jedenfalls nicht nein Speaker 1 00:00:20 berweisen Sie sie dann zum Lipidologen Speaker 0 00:00:23 Ja ja ja mache ich Und wenn ich die Zielbereiche nicht erreiche mit den CSEHmmern und EZTMIP dann schicke ich sie auch melde ich sie auch zum Lipidologen an Aber ich verordne auch Nostendi auch ja Speaker 1 00:00:40 Ah super Denn gerade so bei Hochrisikopatienten Speaker 0 00:00:44 Drfen Speaker 1 00:00:46 Sie es natrlich auch selbst einstellen Ja Speaker 0 00:00:50 Mache ich auch und trotzdem schicke ich sie eigentlich trotzdem noch zum Lipidologen Speaker 1 00:00:55 Ah alles klar Ehe man dann diese teuren PCSK9Hmmer nimmt kann man das schn ausnutzen nochmal ne Ja Speaker 0 00:01:03 Also die PCSK9Hmmer die verordne ich primr nicht Das berlasse ich wirklich den Lipidologen Aber die Bempidoinsure das schon ja Speaker 1 00:01:13 Das schon ne Ja Ah super Sehr schn dass Sie da diese Option dann einfach nehmen Sind Sie mit der Wirkung dann so ganz zufrieden oder mit der Vertrglichkeit Ja Speaker 0 00:01:25 Das ist jetzt keine Probleme Ah Speaker 1 00:01:27 Super Ne sehr schn Dann bleiben Sie dabei das wre schn Und dann habe ich versprochen nicht so lange zu reden Das ist gut ja Speaker 0 00:01:38 Und das will ich auch Speaker 1 00:01:39 Einhalten Und ich bedanke mich bei Ihnen Ja Speaker 0 00:01:41 Bitteschn Jawohl Vielen Speaker 1 00:01:44 Dank Speaker 0 00:01:44 Bitte tschss Tschss",
+      "statements": {
+        "OPENING": [
+          "Dieser Anruf wird aufgezeichnet",
+          "Ja danke fr Ihre Zeit Und die Bempidoinsure das Nostendium Nilemdo spielt ja immer eine grere Rolle bei DL Keine"
+        ],
+        "QUESTIONING": [
+          "berweisen Sie sie dann zum Lipidologen"
+        ],
+        "PRESENTING": [
+          "Große aber es spielt eine Rolle Also ich habe es schon in der Verordnung aber keine große Rolle spielt es Keine große Bis jetzt jedenfalls nicht nein",
+          "Ja ja ja mache ich Und wenn ich die Zielbereiche nicht erreiche mit den CSEHmmern und EZTMIP dann schicke ich sie auch melde ich sie auch zum Lipidologen an Aber ich verordne auch Nostendi auch ja",
+          "Ah super Denn gerade so bei Hochrisikopatienten",
+          "Mache ich auch und trotzdem schicke ich sie eigentlich trotzdem noch zum Lipidologen",
+          "Ah alles klar Ehe man dann diese teuren PCSK9Hmmer nimmt kann man das schn ausnutzen nochmal ne Ja",
+          "Also die PCSK9Hmmer die verordne ich primr nicht Das berlasse ich wirklich den Lipidologen Aber die Bempidoinsure das schon ja",
+          "Das schon ne Ja Ah super Sehr schn dass Sie da diese Option dann einfach nehmen Sind Sie mit der Wirkung dann so ganz zufrieden oder mit der Vertrglichkeit Ja",
+          "Das ist jetzt keine Probleme Ah"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Super Ne sehr schn Dann bleiben Sie dabei das wre schn Und dann habe ich versprochen nicht so lange zu reden Das ist gut ja', 'outcome_statement': 'Und das will ich auch'}",
+          "{'closing_statement': 'Einhalten Und ich bedanke mich bei Ihnen Ja', 'outcome_statement': 'Bitteschn Jawohl Vielen'}",
+          "{'closing_statement': 'Dank', 'outcome_statement': 'Bitte tschss Tschss'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Dieser Anruf wird aufgezeichnet",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Ja danke fr Ihre Zeit Und die Bempidoinsure das Nostendium Nilemdo spielt ja immer eine grere Rolle bei DL Keine",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "berweisen Sie sie dann zum Lipidologen",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Große aber es spielt eine Rolle Also ich habe es schon in der Verordnung aber keine große Rolle spielt es Keine große Bis jetzt jedenfalls nicht nein",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Ja ja ja mache ich Und wenn ich die Zielbereiche nicht erreiche mit den CSEHmmern und EZTMIP dann schicke ich sie auch melde ich sie auch zum Lipidologen an Aber ich verordne auch Nostendi auch ja",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Ah super Denn gerade so bei Hochrisikopatienten",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Mache ich auch und trotzdem schicke ich sie eigentlich trotzdem noch zum Lipidologen",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Ah alles klar Ehe man dann diese teuren PCSK9Hmmer nimmt kann man das schn ausnutzen nochmal ne Ja",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Also die PCSK9Hmmer die verordne ich primr nicht Das berlasse ich wirklich den Lipidologen Aber die Bempidoinsure das schon ja",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Das schon ne Ja Ah super Sehr schn dass Sie da diese Option dann einfach nehmen Sind Sie mit der Wirkung dann so ganz zufrieden oder mit der Vertrglichkeit Ja",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Das ist jetzt keine Probleme Ah",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "transcript-14",
+      "reviewed": false,
+      "text": "Speaker 0:00:00:00:Dieser Anruf wird aufgezeichnet Herr Speaker 2:00:00:15:Kasatkin hallo Speaker 3:00:00:16:Ja hallo Schnen guten Tag Dr Kasatkin Schn dass ich Sie erreiche Mein Name ist Susi Hammert von Daichi Sankyo Dr Kasatkin das Gesprch wird aufgezeichnet Ist es okay fr Sie Also es ist anonym am Ende oder soll ich ausschalten Speaker 2:00:00:32:Ich habe zwei Minuten fr Sie nicht mehr Speaker 3:00:00:34:Ja klar Okay also es geht um Ihre KHKRisikopatienten die trotz maximaler Statintherapie und Acetamib ihre LDLZielwerte nicht erreichen Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung Speaker 2:00:00:49:Bekannt bekannt bekannt Speaker 3:00:00:50:Sehr gut Also um einen berblick zu bekommen Dr Kasatkin was machen Sie Also behandeln Sie schon mit Nustendi Also geben Sie diese Patientin hier Speaker 2:00:01:01:Ja ja behandeln behandeln ja Speaker 3:00:01:02:Und haben Sie gute Erfahrungen damit gehabt Speaker 2:00:01:05:Noch keine Erfahrung gesammelt Speaker 3:00:01:08:Kommt noch okay Okay und wir knnen also wichtig ist fr Sie Herr Doktor dass das von der GBA aufgenommen wird wurde und somit als notwendige Therapiestufe vor dem hochpreisigen Einsatz von PCSK9Inhibitoren Das heit fr Sie Herr Doktor Kasatkin dass es nicht dass Sie keine Angst dann haben vor Regress weil jeder Arzt kann jetzt Nustendi verschreiben und weil das ja in den Leitlinien also vor eine wichtige Vorstufe also vor dem hochpreisigen Einsatz ist das ist vielleicht wertvolle Info Und dann habe ich ein zweites Prparat das ist Lexiana bei Schlaganfall Wie sieht es hier aus Ist das bekannt bei Ihnen Wird das eingesetzt Speaker 2:00:01:54:Bekannt bekannt bekannt ja Okay Speaker 3:00:01:56:Schn Darf ich Sie nochmal zu einem anderen Zeitpunkt nochmal kontaktieren Dann kann ich Ihnen auch die interessanten Studien zeigen wenn Sie vor dem PC sitzen wenn Sie mal lnger Zeit haben dann probiere ich einfach nochmal Ist es okay Dr Kasatkin Speaker 2:00:02:11:Ja ich bin im Januar eingetreten ja Speaker 3:00:02:12:Ja okay gut Ich danke Ihnen und danke fr Ihre Zeit Tschss Danke Speaker 2:00:02:18:Tschss",
+      "statements": {
+        "OPENING": [
+          "Dieser Anruf wird aufgezeichnet Herr Speaker 2:00:00:15:Kasatkin hallo Speaker 3:00:00:16:Ja hallo Schnen guten Tag Dr Kasatkin Schn dass ich Sie erreiche Mein Name ist Susi Hammert von Daichi Sankyo Dr Kasatkin das Gesprch wird aufgezeichnet Ist es okay fr Sie Also es ist anonym am Ende oder soll ich ausschalten",
+          "Ja klar Okay also es geht um Ihre KHKRisikopatienten die trotz maximaler Statintherapie und Acetamib ihre LDLZielwerte nicht erreichen Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung"
+        ],
+        "QUESTIONING": [
+          "Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung",
+          "Also behandeln Sie schon mit Nustendi Also geben Sie diese Patientin hier",
+          "Und haben Sie gute Erfahrungen damit gehabt",
+          "Wie sieht es hier aus Ist das bekannt bei Ihnen Wird das eingesetzt"
+        ],
+        "PRESENTING": [
+          "wichtig ist fr Sie Herr Doktor dass das von der GBA aufgenommen wird wurde und somit als notwendige Therapiestufe vor dem hochpreisigen Einsatz von PCSK9Inhibitoren Das heit fr Sie Herr Doktor Kasatkin dass es nicht dass Sie keine Angst dann haben vor Regress weil jeder Arzt kann jetzt Nustendi verschreiben und weil das ja in den Leitlinien also vor eine wichtige Vorstufe also vor dem hochpreisigen Einsatz ist das ist vielleicht wertvolle Info",
+          "Und dann habe ich ein zweites Prparat das ist Lexiana bei Schlaganfall"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Darf ich Sie nochmal zu einem anderen Zeitpunkt nochmal kontaktieren Dann kann ich Ihnen auch die interessanten Studien zeigen wenn Sie vor dem PC sitzen wenn Sie mal lnger Zeit haben dann probiere ich einfach nochmal Ist es okay Dr Kasatkin', 'outcome_statement': 'Ja ich bin im Januar eingetreten ja'}",
+          "{'closing_statement': 'Ja okay gut Ich danke Ihnen und danke fr Ihre Zeit Tschss Danke', 'outcome_statement': 'Tschss'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Dieser Anruf wird aufgezeichnet Herr Speaker 2:00:00:15:Kasatkin hallo Speaker 3:00:00:16:Ja hallo Schnen guten Tag Dr Kasatkin Schn dass ich Sie erreiche Mein Name ist Susi Hammert von Daichi Sankyo Dr Kasatkin das Gesprch wird aufgezeichnet Ist es okay fr Sie Also es ist anonym am Ende oder soll ich ausschalten",
+          "level": 4
+        },
+        {
+          "category": "OPENING",
+          "statement": "Ja klar Okay also es geht um Ihre KHKRisikopatienten die trotz maximaler Statintherapie und Acetamib ihre LDLZielwerte nicht erreichen Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung",
+          "level": 3
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Also behandeln Sie schon mit Nustendi Also geben Sie diese Patientin hier",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Und haben Sie gute Erfahrungen damit gehabt",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Wie sieht es hier aus Ist das bekannt bei Ihnen Wird das eingesetzt",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "wichtig ist fr Sie Herr Doktor dass das von der GBA aufgenommen wird wurde und somit als notwendige Therapiestufe vor dem hochpreisigen Einsatz von PCSK9Inhibitoren Das heit fr Sie Herr Doktor Kasatkin dass es nicht dass Sie keine Angst dann haben vor Regress weil jeder Arzt kann jetzt Nustendi verschreiben und weil das ja in den Leitlinien also vor eine wichtige Vorstufe also vor dem hochpreisigen Einsatz ist das ist vielleicht wertvolle Info",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Und dann habe ich ein zweites Prparat das ist Lexiana bei Schlaganfall",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "transcript-69",
+      "reviewed": false,
+      "text": "Speaker 0 00:00:00 Dieser Anruf wird aufgezeichnet Speaker 1 00:00:01 Vielen Dank Frau Doktor fr Ihre Zeit Es geht um das Lipidmanagement Ihrer KHKPatienten Frau Doktor wie entscheiden Sie denn welche Therapieoption wann eingesetzt wird fr die LDLCSenkung Speaker 0 00:00:20 Also ich fange an standardmig mit dem Statin dann eskaliere ich mit EZTMIP Wenn das noch nicht ausreicht kommt die Bempiduinsure Und wenn das immer noch nicht ausreicht dann kommt ein PCSK9Hemmer Und Speaker 1 00:00:36 Frau Doktor die Bempiduinsure wenden Sie dann auch schon direkt an Wie ist da dann die LDLCWertsenkung Erreichen Sie immer den LDL den Zielwert Speaker 0 00:00:50 Naja immer nicht Speaker 1 00:00:51 Ach so ja Speaker 0 00:00:54 Genau und dann ist halt die nchste Instanz der PCSK9 Manchmal werden ja auch die Statinen nicht vertragen dann reicht eine Bempiduinsure ohnehin als Monoprparat in der Regel nicht aus Oder in Kombination mit EZTMIP Also ja je nachdem wie die Situation ist Aber so ist sozusagen meine Kaskade Speaker 1 00:01:15 Aha super Und speziell auch die KHKPatienten da haben Sie nochmal so ein Auge drauf wie das bei den Werten ist mit der Senkung Ja ich besorge Speaker 0 00:01:29 Bei denen Das Speaker 1 00:01:31 Ist Speaker 0 00:01:31 Ja unsere Hauptklientel was die LDLSenkung anbelangt Ja Speaker 1 00:01:36 Und Frau Doktor haben Sie festgestellt dass durch so eine frhzeitige Einstellung auf die Bempiduinsure die Ergebnisse besser sind Oder haben Sie da jetzt nichts Besonderes feststellen knnen Speaker 0 00:01:53 Also ich habe nicht jetzt massenhaft Patienten die die Bempiduinsure bekommen Aber hufig wenn sie sie kriegen ist das manchmal sozusagen der letzte Schubs um sie in den Zielbereich zu bekommen Aber ich kann es jetzt ehrlicherweise statistisch nicht sagen Ja Speaker 1 00:02:13 Super Vielen Dank Frau Doktor fr Ihre Zeit Und ich wnsche Ihnen noch einen schnen Tag Ja Speaker 0 00:02:19 Danke gleichfalls Speaker 1 00:02:20 Danke Ihnen Tschss",
+      "statements": {
+        "OPENING": [
+          "Dieser Anruf wird aufgezeichnet",
+          "Vielen Dank Frau Doktor fr Ihre Zeit Es geht um das Lipidmanagement Ihrer KHKPatienten Frau Doktor wie entscheiden Sie denn welche Therapieoption wann eingesetzt wird fr die LDLCSenkung"
+        ],
+        "QUESTIONING": [
+          "Frau Doktor die Bempiduinsure wenden Sie dann auch schon direkt an Wie ist da dann die LDLCWertsenkung Erreichen Sie immer den LDL den Zielwert",
+          "Und Frau Doktor haben Sie festgestellt dass durch so eine frhzeitige Einstellung auf die Bempiduinsure die Ergebnisse besser sind Oder haben Sie da jetzt nichts Besonderes feststellen knnen"
+        ],
+        "PRESENTING": [
+          "Also ich fange an standardmig mit dem Statin dann eskaliere ich mit EZTMIP Wenn das noch nicht ausreicht kommt die Bempiduinsure Und wenn das immer noch nicht ausreicht dann kommt ein PCSK9Hemmer Und",
+          "Genau und dann ist halt die nchste Instanz der PCSK9 Manchmal werden ja auch die Statinen nicht vertragen dann reicht eine Bempiduinsure ohnehin als Monoprparat in der Regel nicht aus Oder in Kombination mit EZTMIP Also ja je nachdem wie die Situation ist Aber so ist sozusagen meine Kaskade"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Super Vielen Dank Frau Doktor fr Ihre Zeit Und ich wnsche Ihnen noch einen schnen Tag Ja', 'outcome_statement': 'Danke gleichfalls'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Dieser Anruf wird aufgezeichnet",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Vielen Dank Frau Doktor fr Ihre Zeit Es geht um das Lipidmanagement Ihrer KHKPatienten Frau Doktor wie entscheiden Sie denn welche Therapieoption wann eingesetzt wird fr die LDLCSenkung",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Frau Doktor die Bempiduinsure wenden Sie dann auch schon direkt an Wie ist da dann die LDLCWertsenkung Erreichen Sie immer den LDL den Zielwert",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Und Frau Doktor haben Sie festgestellt dass durch so eine frhzeitige Einstellung auf die Bempiduinsure die Ergebnisse besser sind Oder haben Sie da jetzt nichts Besonderes feststellen knnen",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Also ich fange an standardmig mit dem Statin dann eskaliere ich mit EZTMIP Wenn das noch nicht ausreicht kommt die Bempiduinsure Und wenn das immer noch nicht ausreicht dann kommt ein PCSK9Hemmer Und",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Genau und dann ist halt die nchste Instanz der PCSK9 Manchmal werden ja auch die Statinen nicht vertragen dann reicht eine Bempiduinsure ohnehin als Monoprparat in der Regel nicht aus Oder in Kombination mit EZTMIP Also ja je nachdem wie die Situation ist Aber so ist sozusagen meine Kaskade",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "transcript-15",
+      "reviewed": false,
+      "text": "Speaker 0 00:00:00 Dieser Anruf wird aufgezeichnet Herr Speaker 2 00:00:15 Kasatkin hallo Speaker 3 00:00:16 Ja hallo Schnen guten Tag Dr Kasatkin Schn dass ich Sie erreiche Mein Name ist Susi Hammert von Daichi Sankyo Dr Kasatkin das Gesprch wird aufgezeichnet Ist es okay fr Sie Also es ist anonym am Ende oder soll ich ausschalten Speaker 2 00:00:32 Ich habe zwei Minuten fr Sie nicht mehr Speaker 3 00:00:34 Ja klar Okay also es geht um Ihre KHKRisikopatienten die trotz maximaler Statintherapie und Acetamib ihre LDLZielwerte nicht erreichen Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung Speaker 2 00:00:49 Bekannt bekannt bekannt Speaker 3 00:00:50 Sehr gut Also um einen berblick zu bekommen Dr Kasatkin was machen Sie Also behandeln Sie schon mit Nustendi Also geben Sie diese Patientin hier Speaker 2 00:01:01 Ja ja behandeln behandeln ja Speaker 3 00:01:02 Und haben Sie gute Erfahrungen damit gehabt Speaker 2 00:01:05 Noch keine Erfahrung gesammelt Speaker 3 00:01:08 Kommt noch okay Okay und wir knnen also wichtig ist fr Sie Herr Doktor dass das von der GBA aufgenommen wird wurde und somit als notwendige Therapiestufe vor dem hochpreisigen Einsatz von PCSK9Inhibitoren Das heit fr Sie Herr Doktor Kasatkin dass es nicht dass Sie keine Angst dann haben vor Regress weil jeder Arzt kann jetzt Nustendi verschreiben und weil das ja in den Leitlinien also vor eine wichtige Vorstufe also vor dem hochpreisigen Einsatz ist das ist vielleicht wertvolle Info Und dann habe ich ein zweites Prparat das ist Lexiana bei Schlaganfall Wie sieht es hier aus Ist das bekannt bei Ihnen Wird das eingesetzt Speaker 2 00:01:54 Bekannt bekannt bekannt ja Okay Speaker 3 00:01:56 Schn Darf ich Sie nochmal zu einem anderen Zeitpunkt nochmal kontaktieren Dann kann ich Ihnen auch die interessanten Studien zeigen wenn Sie vor dem PC sitzen wenn Sie mal lnger Zeit haben dann probiere ich einfach nochmal Ist es okay Dr Kasatkin Speaker 2 00:02:11 Ja ich bin im Januar eingetreten ja Speaker 3 00:02:12 Ja okay gut Ich danke Ihnen und danke fr Ihre Zeit Tschss Danke Speaker 2 00:02:18 Tschss",
+      "statements": {
+        "OPENING": [
+          "Dieser Anruf wird aufgezeichnet Herr Speaker 2 00:00:15 Kasatkin hallo Speaker 3 00:00:16 Ja hallo Schnen guten Tag Dr Kasatkin Schn dass ich Sie erreiche Mein Name ist Susi Hammert von Daichi Sankyo Dr Kasatkin das Gesprch wird aufgezeichnet Ist es okay fr Sie Also es ist anonym am Ende oder soll ich ausschalten",
+          "Ja klar Okay also es geht um Ihre KHKRisikopatienten die trotz maximaler Statintherapie und Acetamib ihre LDLZielwerte nicht erreichen Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung"
+        ],
+        "QUESTIONING": [
+          "Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung",
+          "was machen Sie Also behandeln Sie schon mit Nustendi Also geben Sie diese Patientin hier",
+          "Und haben Sie gute Erfahrungen damit gehabt",
+          "Ist das bekannt bei Ihnen Wird das eingesetzt"
+        ],
+        "PRESENTING": [
+          "wichtig ist fr Sie Herr Doktor dass das von der GBA aufgenommen wird wurde und somit als notwendige Therapiestufe vor dem hochpreisigen Einsatz von PCSK9Inhibitoren Das heit fr Sie Herr Doktor Kasatkin dass es nicht dass Sie keine Angst dann haben vor Regress weil jeder Arzt kann jetzt Nustendi verschreiben und weil das ja in den Leitlinien also vor eine wichtige Vorstufe also vor dem hochpreisigen Einsatz ist das ist vielleicht wertvolle Info Und dann habe ich ein zweites Prparat das ist Lexiana bei Schlaganfall"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Darf ich Sie nochmal zu einem anderen Zeitpunkt nochmal kontaktieren Dann kann ich Ihnen auch die interessanten Studien zeigen wenn Sie vor dem PC sitzen wenn Sie mal lnger Zeit haben dann probiere ich einfach nochmal Ist es okay Dr Kasatkin', 'outcome_statement': 'Ja ich bin im Januar eingetreten ja'}",
+          "{'closing_statement': 'Ja okay gut Ich danke Ihnen und danke fr Ihre Zeit Tschss Danke', 'outcome_statement': 'Tschss'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Dieser Anruf wird aufgezeichnet Herr Speaker 2 00:00:15 Kasatkin hallo Speaker 3 00:00:16 Ja hallo Schnen guten Tag Dr Kasatkin Schn dass ich Sie erreiche Mein Name ist Susi Hammert von Daichi Sankyo Dr Kasatkin das Gesprch wird aufgezeichnet Ist es okay fr Sie Also es ist anonym am Ende oder soll ich ausschalten",
+          "level": 4
+        },
+        {
+          "category": "OPENING",
+          "statement": "Ja klar Okay also es geht um Ihre KHKRisikopatienten die trotz maximaler Statintherapie und Acetamib ihre LDLZielwerte nicht erreichen Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "was machen Sie Also behandeln Sie schon mit Nustendi Also geben Sie diese Patientin hier",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Und haben Sie gute Erfahrungen damit gehabt",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Ist das bekannt bei Ihnen Wird das eingesetzt",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "wichtig ist fr Sie Herr Doktor dass das von der GBA aufgenommen wird wurde und somit als notwendige Therapiestufe vor dem hochpreisigen Einsatz von PCSK9Inhibitoren Das heit fr Sie Herr Doktor Kasatkin dass es nicht dass Sie keine Angst dann haben vor Regress weil jeder Arzt kann jetzt Nustendi verschreiben und weil das ja in den Leitlinien also vor eine wichtige Vorstufe also vor dem hochpreisigen Einsatz ist das ist vielleicht wertvolle Info Und dann habe ich ein zweites Prparat das ist Lexiana bei Schlaganfall",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "transcript-73",
+      "reviewed": false,
+      "text": "Rep :Thank you for seeing me GP :Hello how are you Rep:Very well thank you and how are you GP:Much better since the last time I saw you Rep:Oh yes you were going on holiday werent you GP:Yes I was Rep:How was it GP It was great I feel well rested What have you got for me today Rep :Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis GP :Okay Rep:Who is it that mainly sees the eczema patients here GP:The nurse tends to see most of them these days she probably knows much more about the treatments than I do Rep:And how many patients like this do you see in a week GP:Probably about 2 or 3 Rep :So how would you normally go about treating eczema How do you decide what treatment to use GP :Im usure of the efficacy of Gaboderm and biologics side effects in general so I tend to stick with the emollients creams ointments Rep:Ive heard a few of your colleagues mention efficacy Theyve also said that the lack of efficacy sometimes leads to eczema patients just giving up on finding anything that works GP:Yes youre absolutely right and we need to manage these patients a lot better than we do at the moment but historically we just havent had the range of treatments needed Rep :Okay well I hope Gaboderm can help with efficacy and side effects questions for you Here if you look at this graph this is a study we completed looking at Gaboderm against adalimumab and we showed equivalent efficacy to adalimumab with fewer side effects because it is topical rather than systemic What do you think GP :That sounds impressive Are any of my colleagues using it Rep:Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area GP:Thats really reassuring to hear where was the study conducted again Rep :It was across the EU GP:Mmmmm ok thats impressive Rep:So today I hope Ive answered your questions regarding efficacy and side effects to help to manage your eczema patients You said the nurse mainly looks after the eczema patients so could we book another meeting with you and her together GP :Yes that should be fine Rep:Brilliant Thank You",
+      "statements": {
+        "OPENING": [
+          "Thank you for seeing me",
+          "Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis"
+        ],
+        "QUESTIONING": [
+          "Hello how are you",
+          "Oh yes you were going on holiday werent you",
+          "How was it",
+          "Who is it that mainly sees the eczema patients here",
+          "And how many patients like this do you see in a week",
+          "So how would you normally go about treating eczema How do you decide what treatment to use",
+          "That sounds impressive Are any of my colleagues using it",
+          "Thats really reassuring to hear where was the study conducted again"
+        ],
+        "PRESENTING": [
+          "Okay well I hope Gaboderm can help with efficacy and side effects questions for you Here if you look at this graph this is a study we completed looking at Gaboderm against adalimumab and we showed equivalent efficacy to adalimumab with fewer side effects because it is topical rather than systemic What do you think",
+          "Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area",
+          "It was across the EU"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'So today I hope Ive answered your questions regarding efficacy and side effects to help to manage your eczema patients You said the nurse mainly looks after the eczema patients so could we book another meeting with you and her together', 'outcome_statement': 'Yes that should be fine'}",
+          "{'closing_statement': 'Brilliant Thank You', 'outcome_statement': ''}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Thank you for seeing me",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis",
+          "level": 3
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So how would you normally go about treating eczema How do you decide what treatment to use",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "That sounds impressive Are any of my colleagues using it",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Thats really reassuring to hear where was the study conducted again",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Hello how are you",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Oh yes you were going on holiday werent you",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "How was it",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Who is it that mainly sees the eczema patients here",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "And how many patients like this do you see in a week",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Okay well I hope Gaboderm can help with efficacy and side effects questions for you Here if you look at this graph this is a study we completed looking at Gaboderm against adalimumab and we showed equivalent efficacy to adalimumab with fewer side effects because it is topical rather than systemic What do you think",
+          "level": 3
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "It was across the EU",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "transcript-68",
+      "reviewed": false,
+      "text": "Rep :Thank you for seeing me GP :Hello how are you Rep:Very well thank you and how are you GP:Much better since the last time I saw you Rep:Oh yes you were going on holiday werent you GP:Yes I was Rep:How was it GP It was great I feel well rested What have you got for me today Rep :Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis It would be great if you could identify one of these patients to use Gaboderm in and see how it reduces their flares for yourself GP :Okay Rep:Who is it that mainly sees the eczema patients here GP:The nurse tends to see most of them these days she probably knows much more about the treatments than I do Rep:And how many patients like this do you see in a week GP:Probably about 2 or 3 Rep :So in the interest of saving time what barriers do you see to prescribing Gaboderm in this group of patients GP :Im usure of the efficacy of Gaboderm and biologics side effects in general Rep:Ive heard a few of your colleagues mention efficacy Theyve also said that the lack of efficacy sometimes leads to eczema patients just giving up on finding anything that works GP:Yes youre absolutely right and we need to manage these patients a lot better than we do at the moment but historically we just havent had the range of treatments needed Rep :Okay well I hope Gaboderm can answer the efficacy and side effects questions for you Let me introduce you to the DERMAB STUDY we published it in the New England Journal of Medicine and we showed equivalent efficacy to adalimumab with fewer side effects because it is topical rather than systemic What do you think GP :That sounds impressive Are any of my colleagues using it Rep:Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area GP:Thats really reassuring to hear where was the study conducted again Rep :It was across the EU GP:Mmmmm ok thats impressive Rep:So today I hope Ive answered your questions regarding efficacy and side effects to help to manage your eczema patients Will you use Gaboderm for your next eczema patient GP :Yes I think I will",
+      "statements": {
+        "OPENING": [
+          "Thank you for seeing me",
+          "Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis It would be great if you could identify one of these patients to use Gaboderm in and see how it reduces their flares for yourself"
+        ],
+        "QUESTIONING": [
+          "How was it",
+          "Who is it that mainly sees the eczema patients here",
+          "And how many patients like this do you see in a week",
+          "So in the interest of saving time what barriers do you see to prescribing Gaboderm in this group of patients"
+        ],
+        "PRESENTING": [
+          "Okay well I hope Gaboderm can answer the efficacy and side effects questions for you Let me introduce you to the DERMAB STUDY we published it in the New England Journal of Medicine and we showed equivalent efficacy to adalimumab with fewer side effects because it is topical rather than systemic",
+          "Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area",
+          "It was across the EU"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'So today I hope Ive answered your questions regarding efficacy and side effects to help to manage your eczema patients Will you use Gaboderm for your next eczema patient', 'outcome_statement': 'Yes I think I will'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Thank you for seeing me",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis It would be great if you could identify one of these patients to use Gaboderm in and see how it reduces their flares for yourself",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "And how many patients like this do you see in a week",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So in the interest of saving time what barriers do you see to prescribing Gaboderm in this group of patients",
+          "level": 3
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "How was it",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Who is it that mainly sees the eczema patients here",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Okay well I hope Gaboderm can answer the efficacy and side effects questions for you Let me introduce you to the DERMAB STUDY we published it in the New England Journal of Medicine and we showed equivalent efficacy to adalimumab with fewer side effects because it is topical rather than systemic",
+          "level": 3
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "It was across the EU",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "transcript-25",
+      "reviewed": false,
+      "text": "Rep Thank you for seeing me GP Hello how are you Rep Very well thank you and how are you GP Much better since the last time I saw you Rep Oh yes you were going on holiday werent you GP Yes I was Rep How was it GP It was great I feel well rested What have you got for me today Rep Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis It would be great if you could identify one of these patients to use Gaboderm in and see how it reduces their flares for yourself GP Okay Rep Who is it that mainly sees the eczema patients here GP The nurse tends to see most of them these days she probably knows much more about the treatments than I do Rep And how many patients like this do you see in a week GP Probably about 2 or 3 Rep So in the interest of saving time what barriers do you see to prescribing Gaboderm in this group of patients GP Im usure of the efficacy of Gaboderm and biologics side effects in general Rep Ive heard a few of your colleagues mention efficacy Theyve also said that the lack of efficacy sometimes leads to eczema patients just giving up on finding anything that works GP Yes youre absolutely right and we need to manage these patients a lot better than we do at the moment but historically we just havent had the range of treatments needed Rep Okay well I hope Gaboderm can answer the efficacy and side effects questions for you Let me introduce you to the DERMAB STUDY we published it in the New England Journal of Medicine and we showed equivalent efficacy to adalimumab with fewer side effects because it is topical rather than systemic What do you think GP That sounds impressive Are any of my colleagues using it Rep Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area GP Thats really reassuring to hear where was the study conducted again Rep It was across the EU GP Mmmmm ok thats impressive Rep So today I hope Ive answered your questions regarding efficacy and side effects to help to manage your eczema patients Will you use Gaboderm for your next eczema patient GP Yes I think I will",
+      "statements": {
+        "OPENING": [
+          "Rep Thank you for seeing me",
+          "GP Hello how are you",
+          "Rep Very well thank you and how are you",
+          "GP Much better since the last time I saw you",
+          "Rep Oh yes you were going on holiday werent you",
+          "GP Yes I was",
+          "Rep How was it",
+          "GP It was great I feel well rested",
+          "Rep Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients",
+          "These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis",
+          "It would be great if you could identify one of these patients to use Gaboderm in and see how it reduces their flares for yourself"
+        ],
+        "QUESTIONING": [
+          "GP Okay",
+          "Rep Who is it that mainly sees the eczema patients here",
+          "GP The nurse tends to see most of them these days she probably knows much more about the treatments than I do",
+          "Rep And how many patients like this do you see in a week",
+          "GP Probably about 2 or 3",
+          "Rep So in the interest of saving time what barriers do you see to prescribing Gaboderm in this group of patients",
+          "GP Im usure of the efficacy of Gaboderm and biologics side effects in general",
+          "Rep Ive heard a few of your colleagues mention efficacy",
+          "Theyve also said that the lack of efficacy sometimes leads to eczema patients just giving up on finding anything that works",
+          "GP Yes youre absolutely right and we need to manage these patients a lot better than we do at the moment but historically we just havent had the range of treatments needed"
+        ],
+        "PRESENTING": [
+          "Rep Okay well I hope Gaboderm can answer the efficacy and side effects questions for you",
+          "Let me introduce you to the DERMAB STUDY we published it in the New England Journal of Medicine and we showed equivalent efficacy to adalimumab with fewer side effects because it is topical rather than systemic",
+          "What do you think",
+          "GP That sounds impressive",
+          "Are any of my colleagues using it",
+          "Rep Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area",
+          "GP Thats really reassuring to hear where was the study conducted again",
+          "Rep It was across the EU",
+          "GP Mmmmm ok thats impressive"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Rep So today I hope Ive answered your questions regarding efficacy and side effects to help to manage your eczema patients', 'outcome_statement': 'Will you use Gaboderm for your next eczema patient'}",
+          "{'closing_statement': 'GP Yes I think I will', 'outcome_statement': ''}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Rep Thank you for seeing me",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "GP Hello how are you",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Rep Very well thank you and how are you",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "GP Much better since the last time I saw you",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Rep Oh yes you were going on holiday werent you",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "GP Yes I was",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Rep How was it",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "GP It was great I feel well rested",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Rep Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients",
+          "level": 3
+        },
+        {
+          "category": "OPENING",
+          "statement": "These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis",
+          "level": 2
+        },
+        {
+          "category": "OPENING",
+          "statement": "It would be great if you could identify one of these patients to use Gaboderm in and see how it reduces their flares for yourself",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Rep Who is it that mainly sees the eczema patients here",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Rep And how many patients like this do you see in a week",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Rep So in the interest of saving time what barriers do you see to prescribing Gaboderm in this group of patients",
+          "level": 3
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Rep Okay well I hope Gaboderm can answer the efficacy and side effects questions for you",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Let me introduce you to the DERMAB STUDY we published it in the New England Journal of Medicine and we showed equivalent efficacy to adalimumab with fewer side effects because it is topical rather than systemic",
+          "level": 3
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "What do you think",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Rep Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Rep It was across the EU",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "transcript-24",
+      "reviewed": false,
+      "text": "Sales Representative REP: I really believe its an outstanding drug that could be life changing for the right patients Could we revisit your adult patients with moderate to severe plaque psoriasis please Id love you to have the confidence to want to try GABODERM in one of these patients if that is okay with you Doctor: Yes Im open to considering it for the right patient REP: How are you Doctor: Im doing well thank you REP: Busy is a way of life these days isnt it Doctor: Indeed it is REP: Could you tell me what was it that triggered you to try it for the first time and what did you see that made you decide to make it one of your mainstay treatments Doctor: I was intrigued by the clinical data and the potential benefits it could offer to my patients After trying it and seeing positive results I decided to incorporate it into my treatment options REP: There have been other new products launched in this area since but you dont seem to have adopted any of those what would a new treatment for moderate to severe plaque psoriasis have to demonstrate for you to have that I must try it moment again Doctor: For me a new treatment would have to demonstrate superior efficacy or safety compared to existing options It would also need to be convenient for patients to use REP: And when you say efficacy what would that be for you PASI 90 speed what exactly for you Doctor: Efficacy for me would be achieving a high rate of PASI 90 response preferably with a rapid onset of action REP: Is that correct Doctor: Yes thats correct REP: It this okay to present Doctor: Yes please go ahead REP: Let me show you the RADIANT Study REP: Now although this is a UCB sponsored study it was peer reviewed and published in the New England Journal of Medicine in July 2021 It was a head to head doubleblind randomised study of 743 moderate to severe plaque psoriasis patients compared to secretamab REP: Do you have a patient in mind and how will you ensure they receive GABODERM Doctor: I do have someone in mind but I know theyre not due in for a couple of weeks Also although Ill see the patient itll be the nurse that administers the first dose and has responsibility for training the patient REP: Well could we book a meeting for you to meet the nurse and ensure she has everything she needs to start that patient on GABODERM Doctor: Yes lets do that REP: Could we book another meeting a couple of weeks after the patient commences treatment so we can check the patients progress Doctor: Yes lets book that when you come in to see the nurse",
+      "statements": {
+        "OPENING": [
+          "I really believe its an outstanding drug that could be life changing for the right patients Could we revisit your adult patients with moderate to severe plaque psoriasis please Id love you to have the confidence to want to try GABODERM in one of these patients if that is okay with you"
+        ],
+        "QUESTIONING": [
+          "Could you tell me what was it that triggered you to try it for the first time and what did you see that made you decide to make it one of your mainstay treatments",
+          "There have been other new products launched in this area since but you dont seem to have adopted any of those what would a new treatment for moderate to severe plaque psoriasis have to demonstrate for you to have that I must try it moment again",
+          "And when you say efficacy what would that be for you PASI 90 speed what exactly for you",
+          "Is that correct",
+          "It this okay to present",
+          "Do you have a patient in mind and how will you ensure they receive GABODERM"
+        ],
+        "PRESENTING": [
+          "Let me show you the RADIANT Study",
+          "Now although this is a UCB sponsored study it was peer reviewed and published in the New England Journal of Medicine in July 2021 It was a head to head doubleblind randomised study of 743 moderate to severe plaque psoriasis patients compared to secretamab"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Well could we book a meeting for you to meet the nurse and ensure she has everything she needs to start that patient on GABODERM', 'outcome_statement': 'Yes lets do that'}",
+          "{'closing_statement': 'Could we book another meeting a couple of weeks after the patient commences treatment so we can check the patients progress', 'outcome_statement': 'Yes lets book that when you come in to see the nurse'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "I really believe its an outstanding drug that could be life changing for the right patients Could we revisit your adult patients with moderate to severe plaque psoriasis please Id love you to have the confidence to want to try GABODERM in one of these patients if that is okay with you",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Could you tell me what was it that triggered you to try it for the first time and what did you see that made you decide to make it one of your mainstay treatments",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "There have been other new products launched in this area since but you dont seem to have adopted any of those what would a new treatment for moderate to severe plaque psoriasis have to demonstrate for you to have that I must try it moment again",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "And when you say efficacy what would that be for you PASI 90 speed what exactly for you",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Is that correct",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "It this okay to present",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Do you have a patient in mind and how will you ensure they receive GABODERM",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Let me show you the RADIANT Study",
+          "level": 3
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Now although this is a UCB sponsored study it was peer reviewed and published in the New England Journal of Medicine in July 2021 It was a head to head doubleblind randomised study of 743 moderate to severe plaque psoriasis patients compared to secretamab",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "transcript-65",
+      "reviewed": false,
+      "text": "Rep :Thank you for seeing me GP :Hello how are you Rep:Very well thank you and how are you GP:Much better since the last time I saw you Rep:Oh yes you were going on holiday werent you GP:Yes I was Rep:How was it GP It was great I feel well rested What have you got for me today Rep :Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis It would be great if you could identify one of these patients to use Gaboderm in and see how it reduces their flares for yourself Would that be okay GP :Yes certainly Rep:Who is it that mainly sees the eczema patients here GP:The nurse tends to see most of them these days she probably knows much more about the treatments than I do Rep:And how many patients like this do you see in a week GP:Probably about 2 or 3 Rep :So in the interest of saving time what would you need to see from me today to feel confident to prescribe Gaboderm in this group of patients GP :It would be great to see the efficacy data you have and that it has a favourable side effect profile versus adalimumab Rep:Ive heard a few of your colleagues mention the importance of efficacy for this group Theyve also said that the lack of efficacy sometimes leads to patients just giving up on finding anything that works GP:Yes youre absolutely right and we need to manage these patients a lot better than we do at the moment but historically we just havent had the range of treatments needed Rep :Okay well I hope Gaboderm can answer the efficacy and side effects questions for you Let me introduce you to the DERMAB STUDY it was published in the New England Journal of Medicine It was a 5year headtohead study with adalimumab Its randomised double blind with 287 patients The results showed equivalent efficacy with fewer side effects because it is topical rather than systemic What do you think GP :That sounds impressive Are any of my colleagues using it Rep:Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area GP:Thats really reassuring to hear where was the study conducted again Rep :It was across the EU GP:Mmmmm ok thats impressive Rep:So today I hope Ive answered your questions regarding efficacy and side effects to help to manage your eczema patients Will you use Gaboderm for your next eczema patient GP :Yes I think I will Rep:Brilliant What are the next steps to ensure the next patient gets Gaboderm GP:I think that we need to get the nurse involved so that she can identify the patients when she sees them Rep:And whats the best way to get them involved GP:Ill speak to her right now let me give her a call Rep:Brilliant Thank you",
+      "statements": {
+        "OPENING": [
+          "Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis It would be great if you could identify one of these patients to use Gaboderm in and see how it reduces their flares for yourself Would that be okay"
+        ],
+        "QUESTIONING": [
+          "How was it",
+          "Who is it that mainly sees the eczema patients here",
+          "And how many patients like this do you see in a week",
+          "So in the interest of saving time what would you need to see from me today to feel confident to prescribe Gaboderm in this group of patients",
+          "That sounds impressive Are any of my colleagues using it",
+          "Thats really reassuring to hear where was the study conducted again"
+        ],
+        "PRESENTING": [
+          "Let me introduce you to the DERMAB STUDY it was published in the New England Journal of Medicine It was a 5year headtohead study with adalimumab Its randomised double blind with 287 patients The results showed equivalent efficacy with fewer side effects because it is topical rather than systemic What do you think",
+          "Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area",
+          "It was across the EU"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'So today I hope Ive answered your questions regarding efficacy and side effects to help to manage your eczema patients Will you use Gaboderm for your next eczema patient', 'outcome_statement': 'Yes I think I will'}",
+          "{'closing_statement': 'Brilliant What are the next steps to ensure the next patient gets Gaboderm', 'outcome_statement': 'I think that we need to get the nurse involved so that she can identify the patients when she sees them'}",
+          "{'closing_statement': 'And whats the best way to get them involved', 'outcome_statement': 'Ill speak to her right now let me give her a call'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Excellent well I havent spoken to you about this before but I want to show you some exciting information about Gaboderm ointment for your moderate to severe eczema patients These are patients who are having frequent flares so the chances are that youll be seeing them in the practice on a regular basis It would be great if you could identify one of these patients to use Gaboderm in and see how it reduces their flares for yourself Would that be okay",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "How was it",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Who is it that mainly sees the eczema patients here",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "And how many patients like this do you see in a week",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So in the interest of saving time what would you need to see from me today to feel confident to prescribe Gaboderm in this group of patients",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "That sounds impressive Are any of my colleagues using it",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Thats really reassuring to hear where was the study conducted again",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Let me introduce you to the DERMAB STUDY it was published in the New England Journal of Medicine It was a 5year headtohead study with adalimumab Its randomised double blind with 287 patients The results showed equivalent efficacy with fewer side effects because it is topical rather than systemic What do you think",
+          "level": 4
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Yes 3 GPs from the Cross surgery down the road are already using it and Dr Ali from the hospital has been referring patients out to GPs in the area",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "It was across the EU",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "transcript-31",
+      "reviewed": false,
+      "text": "Speaker 0 00:00:00 Dieser Anruf wird aufgezeichnet Speaker 1 00:00:02 So super Ich bedanke mich fr Ihre Zeit und das Nostendi und Linemdo als BimHydroinsure im Lipidmanagement Spielt das bei Ihnen eine Rolle oder schicken Sie das lieber doch dann weiter Speaker 2 00:00:17 Nein nein wir machen das hier Speaker 1 00:00:19 Ja ne Gerade Speaker 2 00:00:20 Mit einer Patientin lange darber geredet Speaker 1 00:00:23 Ah sehr schn Speaker 2 00:00:25 Die ist gerade rausgegangen witzigerweise Also diese StatinUnvertrglichkeit eigentlich das Hauptthema ist diese StatinUnvertrglichkeit wo wir es einsetzen Oder im Prinzip halt auch noch OnTop haben wir auch schon gemacht Speaker 1 00:00:40 OnTop noch oben drauf ne Ja Speaker 2 00:00:42 Genau Speaker 1 00:00:43 Ehe man diese teuren PCSK9Hmmer nimmt dann hat man die Option noch Speaker 2 00:00:48 Mit Speaker 1 00:00:49 Dem Nostendi Und dadurch dass es mit ECTVip da noch kombiniert ist kann man es dann eigentlich auch ganz gut kombinieren Compliancefreudig gestalten ne Wir hatten ja noch eine neue Studie gemacht in Bezug zu kardiovaskulren Ereignisse Und da gibt es halt in der ClearOutcomeStudie noch sehr gute Ergebnisse sodass der Benefit fr den Patienten auch noch mal so ein bisschen als Daten unterlegt ist Das ist einfach eine 13 signifikante Reduktion kardiovaskulrer Ereignisse dann noch nebenbei Und der KAKPatient ist ja sowieso dann auch eher so ein Hochrisikopatient Spielt das bei Ihnen da auch eine Rolle wenn da ein Hochrisikopatient ist und so weiter Ist das fr Sie auch ganz klar Speaker 2 00:01:35 Ja auf jeden Fall Aber ja und dann halt immer die Diskussion mit der Vertrglichkeit bei den Statinen Ja Speaker 1 00:01:42 Statinenvertrglichkeit und genau dass man da eben halt Dass man die Hand Speaker 2 00:01:48 Hat endlich mal Ja ist ja gut Speaker 1 00:01:50 Sind Sie mit der Wirkung da mit der Zielwertsenkung beim LDL sind Sie da zufrieden mit dem Speaker 2 00:01:56 Nostendi Ja das funktioniert Das funktioniert gar nicht schlecht ja Funktioniert ganz gut Speaker 1 00:01:59 Funktioniert super ne Genau Denn die Ziele sind ja doch sehr ambitioniert ne Absolut Speaker 2 00:02:04 Ja Speaker 1 00:02:05 Absolut ne Genau Und sind Sie auch mit der Vertrglichkeit ganz zufrieden so in dem Bereich Speaker 2 00:02:14 Bisher das habe ich jetzt der Dame hier gerade probiert klarzumachen bin ich eigentlich sehr zufrieden mit der Vertrglichkeit Aber man wei ja nicht so richtig warum die Leute keinen Statinen vertragen wenn man es gar nicht objektiv nachvollziehen kann Oder auch nichts an den Laborwerten sieht oder so Trotzdem vertragen sie es halt nicht mit ihrer Muskulatur Oft sind die natrlich auch schwierig dann wieder mit anderen Medikamenten Deswegen ist es dann manchmal nicht so ganz einfach oder nicht so ganz eindeutig Speaker 1 00:02:41 Ah alles klar Da ist viel Speaker 2 00:02:42 berzeugungsarbeit notwendig Speaker 1 00:02:46 Ja da sind Sie dann Sie als Facharzt dann doch gefragt den Patienten dann berhaupt davon zu berzeugen dass sie es dann auch einnehmen Ja das ist schon gar nicht so schwierig Oder auch die ich denke mal auch die Schwierigkeit liegt darin dass berhaupt sie auch zu berzeugen dass das wichtig ist dass man das im Griff hat Wenn Sie nachher Speaker 2 00:03:07 Sagen Sie haben keine gute Lebensqualitt ist auch bld ne im Prinzip Aber dann muss man sie schon berzeugen dass es ihnen auch was bringt Speaker 1 00:03:15 Ah alles klar Okay gut Ich habe versprochen nicht so lange zu wachen Ja Speaker 2 00:03:22 Genau logisch Speaker 1 00:03:22 Ich wrde gerne einhalten Ja Ja Und darf ich dann vielleicht noch in ein zwei Monaten nochmal anrufen um wenn noch neue Informationen sind das wre sehr schn Gerne ja Dann haben Sie sich vielen vielen Dank und einen schnen Tag wnsche ich Ihnen auch Ja bis zum nchsten Mal Speaker 2 00:03:39 Alles Gute Danke schn Tschss Tschss",
+      "statements": {
+        "OPENING": [
+          "Dieser Anruf wird aufgezeichnet",
+          "So super Ich bedanke mich fr Ihre Zeit und das Nostendi und Linemdo als BimHydroinsure im Lipidmanagement Spielt das bei Ihnen eine Rolle oder schicken Sie das lieber doch dann weiter"
+        ],
+        "QUESTIONING": [
+          "Spielt das bei Ihnen eine Rolle oder schicken Sie das lieber doch dann weiter",
+          "Sind Sie mit der Wirkung da mit der Zielwertsenkung beim LDL sind Sie da zufrieden mit dem",
+          "Und sind Sie auch mit der Vertrglichkeit ganz zufrieden so in dem Bereich"
+        ],
+        "PRESENTING": [
+          "Wir hatten ja noch eine neue Studie gemacht in Bezug zu kardiovaskulren Ereignisse Und da gibt es halt in der ClearOutcomeStudie noch sehr gute Ergebnisse sodass der Benefit fr den Patienten auch noch mal so ein bisschen als Daten unterlegt ist Das ist einfach eine 13 signifikante Reduktion kardiovaskulrer Ereignisse dann noch nebenbei Und der KAKPatient ist ja sowieso dann auch eher so ein Hochrisikopatient",
+          "Dem Nostendi Und dadurch dass es mit ECTVip da noch kombiniert ist kann man es dann eigentlich auch ganz gut kombinieren Compliancefreudig gestalten ne"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Ich habe versprochen nicht so lange zu wachen Ja', 'outcome_statement': 'Genau logisch'}",
+          "{'closing_statement': 'Und darf ich dann vielleicht noch in ein zwei Monaten nochmal anrufen um wenn noch neue Informationen sind das wre sehr schn Gerne ja Dann haben Sie sich vielen vielen Dank und einen schnen Tag wnsche ich Ihnen auch Ja bis zum nchsten Mal', 'outcome_statement': 'Alles Gute Danke schn Tschss Tschss'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Dieser Anruf wird aufgezeichnet",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "So super Ich bedanke mich fr Ihre Zeit und das Nostendi und Linemdo als BimHydroinsure im Lipidmanagement Spielt das bei Ihnen eine Rolle oder schicken Sie das lieber doch dann weiter",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Spielt das bei Ihnen eine Rolle oder schicken Sie das lieber doch dann weiter",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Sind Sie mit der Wirkung da mit der Zielwertsenkung beim LDL sind Sie da zufrieden mit dem",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Und sind Sie auch mit der Vertrglichkeit ganz zufrieden so in dem Bereich",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Wir hatten ja noch eine neue Studie gemacht in Bezug zu kardiovaskulren Ereignisse Und da gibt es halt in der ClearOutcomeStudie noch sehr gute Ergebnisse sodass der Benefit fr den Patienten auch noch mal so ein bisschen als Daten unterlegt ist Das ist einfach eine 13 signifikante Reduktion kardiovaskulrer Ereignisse dann noch nebenbei Und der KAKPatient ist ja sowieso dann auch eher so ein Hochrisikopatient",
+          "level": 3
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Dem Nostendi Und dadurch dass es mit ECTVip da noch kombiniert ist kann man es dann eigentlich auch ganz gut kombinieren Compliancefreudig gestalten ne",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "transcript-23",
+      "reviewed": false,
+      "text": "Sales Representative REP: Well my hope is that what we talk about today will bring some advantages to you and your team as well as to patients Id like to carry on our conversation around CombiClean Foam REP: Great So what Id like to do today is explore what the opportunities are to get more appropriate patients getting the benefits of CombiClean Foam by seeing if we can identify who are those appropriate patients and how we get the rest of your team up to speed with using it How does that sound Doctor: That sounds like a productive discussion REP: How are you Doctor: Im doing well thank you REP: How have things been since we last met Doctor: Things have been busy but good REP: Did you manage to use it on any patients Doctor: Yes I have used it on a few patients and so far the feedback has been positive REP: So if you think back to those patients who you did use it on what did you and the patients think of it Doctor: Both myself and the patients found it to be effective in managing wounds and reducing the risk of complications REP: Would you say that you have had a positive first experience with CombiClean Foam Doctor: Yes my experience with CombiClean Foam has been positive so far REP: Sure I understand that Is there anything you particularly want me to cover in our time today Doctor: I think weve covered most of the important points but if theres anything new you have to share Im interested to hear REP: What else is it that you need to hear from me today to be confident in extending your use of CombiClean Foam across the team Doctor: I think we need to find a way to keep it simple to make it very clear to your nurses how they simply identify appropriate patients and that there is not going to be additional work caused for them Is that right REP: Exactly We want to ensure a smooth transition for your team without adding any extra burden REP: So you can see it looks like our Liquifil dressing that you currently use but with the addition of a foam layer so you get that vertical wicking that absorption of exudate in the same way as you do with Liquifil to ensure wounds dont get worse and there is reduced risk of maceration Ill show you in just a moment how it does that but you also get the comfort and protection of a foam dressing in this additional third layer REP: What do you think the next steps are in getting CombiClean Foam rolled out to the team and ensure more patients get the benefits Doctor: I think we just need to set up a time to do some training with the team but thats not always easy these days REP: Perhaps we could look to identify any of those knowledge gaps so as we roll out CombiClean foam we could add in those things that would also be helpful to your team Doctor: Thats a great idea That would be really helpful REP: Are you happy that we do the training in person rather than virtually Doctor: Yes we are fine with that now REP: What else needs to be in place for your team to be ready to use once we have done the training Doctor: Wed need some dressing in stock and have agreed with pharmacy to do an evaluation before we get regular orders in REP: What would be helpful is if you could just let them know this is your plan Would that be alright Doctor: Yes sure Our pharmacist is on the ward now so we could pop down and see her right now if that works REP: Excellent Is there anything else we need to cover now Doctor: No I think weve covered everything",
+      "statements": {
+        "OPENING": [
+          "Well my hope is that what we talk about today will bring some advantages to you and your team as well as to patients Id like to carry on our conversation around CombiClean Foam",
+          "Great So what Id like to do today is explore what the opportunities are to get more appropriate patients getting the benefits of CombiClean Foam by seeing if we can identify who are those appropriate patients and how we get the rest of your team up to speed with using it How does that sound"
+        ],
+        "QUESTIONING": [
+          "How are you",
+          "How have things been since we last met",
+          "Did you manage to use it on any patients",
+          "So if you think back to those patients who you did use it on what did you and the patients think of it",
+          "Would you say that you have had a positive first experience with CombiClean Foam",
+          "Is there anything you particularly want me to cover in our time today",
+          "What else is it that you need to hear from me today to be confident in extending your use of CombiClean Foam across the team",
+          "I think we need to find a way to keep it simple to make it very clear to your nurses how they simply identify appropriate patients and that there is not going to be additional work caused for them Is that right",
+          "What do you think the next steps are in getting CombiClean Foam rolled out to the team and ensure more patients get the benefits",
+          "Are you happy that we do the training in person rather than virtually",
+          "What else needs to be in place for your team to be ready to use once we have done the training",
+          "What would be helpful is if you could just let them know this is your plan Would that be alright",
+          "Is there anything else we need to cover now"
+        ],
+        "PRESENTING": [
+          "So you can see it looks like our Liquifil dressing that you currently use but with the addition of a foam layer so you get that vertical wicking that absorption of exudate in the same way as you do with Liquifil to ensure wounds dont get worse and there is reduced risk of maceration Ill show you in just a moment how it does that but you also get the comfort and protection of a foam dressing in this additional third layer"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Perhaps we could look to identify any of those knowledge gaps so as we roll out CombiClean foam we could add in those things that would also be helpful to your team', 'outcome_statement': 'Thats a great idea That would be really helpful'}",
+          "{'closing_statement': 'What else needs to be in place for your team to be ready to use once we have done the training', 'outcome_statement': 'Wed need some dressing in stock and have agreed with pharmacy to do an evaluation before we get regular orders in'}",
+          "{'closing_statement': 'What would be helpful is if you could just let them know this is your plan Would that be alright', 'outcome_statement': 'Yes sure Our pharmacist is on the ward now so we could pop down and see her right now if that works'}",
+          "{'closing_statement': 'Excellent Is there anything else we need to cover now', 'outcome_statement': 'No I think weve covered everything'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Well my hope is that what we talk about today will bring some advantages to you and your team as well as to patients Id like to carry on our conversation around CombiClean Foam",
+          "level": 3
+        },
+        {
+          "category": "OPENING",
+          "statement": "Great So what Id like to do today is explore what the opportunities are to get more appropriate patients getting the benefits of CombiClean Foam by seeing if we can identify who are those appropriate patients and how we get the rest of your team up to speed with using it How does that sound",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So if you think back to those patients who you did use it on what did you and the patients think of it",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "How are you",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "How have things been since we last met",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Did you manage to use it on any patients",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Would you say that you have had a positive first experience with CombiClean Foam",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Is there anything you particularly want me to cover in our time today",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "What else is it that you need to hear from me today to be confident in extending your use of CombiClean Foam across the team",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "I think we need to find a way to keep it simple to make it very clear to your nurses how they simply identify appropriate patients and that there is not going to be additional work caused for them Is that right",
+          "level": 3
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "What do you think the next steps are in getting CombiClean Foam rolled out to the team and ensure more patients get the benefits",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Are you happy that we do the training in person rather than virtually",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "What else needs to be in place for your team to be ready to use once we have done the training",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "What would be helpful is if you could just let them know this is your plan Would that be alright",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Is there anything else we need to cover now",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "So you can see it looks like our Liquifil dressing that you currently use but with the addition of a foam layer so you get that vertical wicking that absorption of exudate in the same way as you do with Liquifil to ensure wounds dont get worse and there is reduced risk of maceration Ill show you in just a moment how it does that but you also get the comfort and protection of a foam dressing in this additional third layer",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "transcript-46",
+      "reviewed": false,
+      "text": "Speaker 0 00:00:00 Dieser Anruf wird aufgezeichnet Speaker 1 00:00:01 Vielen Dank Frau Doktor fr Ihre Zeit Es geht um das Lipidmanagement Ihrer KHKPatienten Frau Doktor wie entscheiden Sie denn welche Therapieoption wann eingesetzt wird fr die LDLCSenkung Speaker 0 00:00:20 Also ich fange an standardmig mit dem Statin dann eskaliere ich mit EZTMIP Wenn das noch nicht ausreicht kommt die Bempiduinsure Und wenn das immer noch nicht ausreicht dann kommt ein PCSK9Hemmer Und Speaker 1 00:00:36 Frau Doktor die Bempiduinsure wenden Sie dann auch schon direkt an Wie ist da dann die LDLCWertsenkung Erreichen Sie immer den LDL den Zielwert Speaker 0 00:00:50 Naja immer nicht Speaker 1 00:00:51 Ach so ja Speaker 0 00:00:54 Genau und dann ist halt die nchste Instanz der PCSK9 Manchmal werden ja auch die Statinen nicht vertragen dann reicht eine Bempiduinsure ohnehin als Monoprparat in der Regel nicht aus Oder in Kombination mit EZTMIP Also ja je nachdem wie die Situation ist Aber so ist sozusagen meine Kaskade Speaker 1 00:01:15 Aha super Und speziell auch die KHKPatienten da haben Sie nochmal so ein Auge drauf wie das bei den Werten ist mit der Senkung Ja ich besorge Speaker 0 00:01:29 Bei denen Das Speaker 1 00:01:31 Ist Speaker 0 00:01:31 Ja unsere Hauptklientel was die LDLSenkung anbelangt Ja Speaker 1 00:01:36 Und Frau DoktorSpeaker 0 00:00:00 Dieser Anruf wird aufgezeichnet Herr Speaker 2 00:00:15 Kasatkin hallo Speaker 3 00:00:16 Ja hallo Schnen guten Tag Dr Kasatkin Schn dass ich Sie erreiche Mein Name ist Susi Hammert von Daichi Sankyo Dr Kasatkin das Gesprch wird aufgezeichnet Ist es okay fr Sie Also es ist anonym am Ende oder soll ich ausschalten Speaker 2 00:00:32 Ich habe zwei Minuten fr Sie nicht mehr Speaker 3 00:00:34 Ja klar Okay also es geht um Ihre KHKRisikopatienten die trotz maximaler Statintherapie und Acetamib ihre LDLZielwerte nicht erreichen Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung Speaker 2 00:00:49 Bekannt bekannt bekannt Speaker 3 00:00:50 Sehr gut Also um einen berblick zu bekommen Dr Kasatkin was machen Sie Also behandeln Sie schon mit Nustendi Also geben Sie diese Patientin hier Speaker 2 00:01:01 Ja ja behandeln behandeln ja Speaker 3 00:01:02 Und haben Sie gute Erfahrungen damit gehabt Speaker 2 00:01:05 Noch keine Erfahrung gesammelt Speaker 3 00:01:08 Kommt noch okay Okay und wir knnen also wichtig ist fr Sie Herr Doktor dass das von der GBA aufgenommen wird wurde und somit als notwendige Therapiestufe vor dem hochpreisigen Einsatz von PCSK9Inhibitoren Das heit fr Sie Herr Doktor Kasatkin dass es nicht dass Sie keine Angst dann haben vor Regress weil jeder Arzt kann jetzt Nustendi verschreiben und weil das ja in den Leitlinien also vor eine wichtige Vorstufe also vor dem hochpreisigen Einsatz ist das ist vielleicht wertvolle Info Und dann habe ich ein zweites Prparat das ist Lexiana bei Schlaganfall Wie sieht es hier aus Ist das bekannt bei Ihnen Wird das eingesetzt Speaker 2 00:01:54 Bekannt bekannt bekannt ja Okay Speaker 3 00:01:56 Schn Darf ich Sie nochmal zu einem anderen Zeitpunkt nochmal kontaktieren Dann kann ich Ihnen auch die interessanten Studien zeigen wenn Sie vor dem PC sitzen wenn Sie mal lnger Zeit haben dann probiere ich einfach nochmal Ist es okay Dr Kasatkin Speaker 2 00:02:11 Ja ich bin im Januar eingetreten ja Speaker 3 00:02:12 Ja okay gut Ich danke Ihnen und danke fr Ihre Zeit Tschss Danke Speaker 2 00:02:18 Tschss haben Sie festgestellt dass durch so eine frhzeitige Einstellung auf die Bempiduinsure die Ergebnisse besser sind Oder haben Sie da jetzt nichts Besonderes feststellen knnen Speaker 0 00:01:53 Also ich habe nicht jetzt massenhaft Patienten die die Bempiduinsure bekommen Aber hufig wenn sie sie kriegen ist das manchmal sozusagen der letzte Schubs um sie in den Zielbereich zu bekommen Aber ich kann es jetzt ehrlicherweise statistisch nicht sagen Ja Speaker 1 00:02:13 Super Vielen Dank Frau Doktor fr Ihre Zeit Und ich wnsche Ihnen noch einen schnen Tag Ja Speaker 0 00:02:19 Danke gleichfalls Speaker 1 00:02:20 Danke Ihnen Tschss",
+      "statements": {
+        "OPENING": [
+          "Dieser Anruf wird aufgezeichnet",
+          "Vielen Dank Frau Doktor fr Ihre Zeit Es geht um das Lipidmanagement Ihrer KHKPatienten Frau Doktor wie entscheiden Sie denn welche Therapieoption wann eingesetzt wird fr die LDLCSenkung",
+          "Dieser Anruf wird aufgezeichnet Herr",
+          "Kasatkin hallo",
+          "Ja hallo Schnen guten Tag Dr Kasatkin Schn dass ich Sie erreiche Mein Name ist Susi Hammert von Daichi Sankyo Dr Kasatkin das Gesprch wird aufgezeichnet Ist es okay fr Sie Also es ist anonym am Ende oder soll ich ausschalten",
+          "Ja klar Okay also es geht um Ihre KHKRisikopatienten die trotz maximaler Statintherapie und Acetamib ihre LDLZielwerte nicht erreichen Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung"
+        ],
+        "QUESTIONING": [
+          "Frau Doktor die Bempiduinsure wenden Sie dann auch schon direkt an Wie ist da dann die LDLCWertsenkung Erreichen Sie immer den LDL den Zielwert",
+          "Naja immer nicht",
+          "Ach so ja",
+          "Genau und dann ist halt die nchste Instanz der PCSK9 Manchmal werden ja auch die Statinen nicht vertragen dann reicht eine Bempiduinsure ohnehin als Monoprparat in der Regel nicht aus Oder in Kombination mit EZTMIP Also ja je nachdem wie die Situation ist Aber so ist sozusagen meine Kaskade",
+          "Aha super Und speziell auch die KHKPatienten da haben Sie nochmal so ein Auge drauf wie das bei den Werten ist mit der Senkung Ja ich besorge",
+          "Bei denen Das",
+          "Ist",
+          "Ja unsere Hauptklientel was die LDLSenkung anbelangt Ja",
+          "Und Frau Doktor",
+          "Bekannt bekannt bekannt",
+          "Sehr gut Also um einen berblick zu bekommen Dr Kasatkin was machen Sie Also behandeln Sie schon mit Nustendi Also geben Sie diese Patientin hier",
+          "Ja ja behandeln behandeln ja",
+          "Und haben Sie gute Erfahrungen damit gehabt",
+          "Noch keine Erfahrung gesammelt",
+          "Kommt noch okay Okay und wir knnen also wichtig ist fr Sie Herr Doktor dass das von der GBA aufgenommen wird wurde und somit als notwendige Therapiestufe vor dem hochpreisigen Einsatz von PCSK9Inhibitoren Das heit fr Sie Herr Doktor Kasatkin dass es nicht dass Sie keine Angst dann haben vor Regress weil jeder Arzt kann jetzt Nustendi verschreiben und weil das ja in den Leitlinien also vor eine wichtige Vorstufe also vor dem hochpreisigen Einsatz ist das ist vielleicht wertvolle Info Und dann habe ich ein zweites Prparat das ist Lexiana bei Schlaganfall Wie sieht es hier aus Ist das bekannt bei Ihnen Wird das eingesetzt",
+          "Bekannt bekannt bekannt ja Okay",
+          "Schn Darf ich Sie nochmal zu einem anderen Zeitpunkt nochmal kontaktieren Dann kann ich Ihnen auch die interessanten Studien zeigen wenn Sie vor dem PC sitzen wenn Sie mal lnger Zeit haben dann probiere ich einfach nochmal Ist es okay Dr Kasatkin",
+          "Ja ich bin im Januar eingetreten ja",
+          "Tschss haben Sie festgestellt dass durch so eine frhzeitige Einstellung auf die Bempiduinsure die Ergebnisse besser sind Oder haben Sie da jetzt nichts Besonderes feststellen knnen",
+          "Also ich habe nicht jetzt massenhaft Patienten die die Bempiduinsure bekommen Aber hufig wenn sie sie kriegen ist das manchmal sozusagen der letzte Schubs um sie in den Zielbereich zu bekommen Aber ich kann es jetzt ehrlicherweise statistisch nicht sagen Ja"
+        ],
+        "PRESENTING": [
+          "Also ich fange an standardmig mit dem Statin dann eskaliere ich mit EZTMIP Wenn das noch nicht ausreicht kommt die Bempiduinsure Und wenn das immer noch nicht ausreicht dann kommt ein PCSK9Hemmer Und"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Super Vielen Dank Frau Doktor fr Ihre Zeit Und ich wnsche Ihnen noch einen schnen Tag Ja', 'outcome_statement': 'Danke gleichfalls'}",
+          "{'closing_statement': 'Danke Ihnen Tschss', 'outcome_statement': 'Ja okay gut Ich danke Ihnen und danke fr Ihre Zeit Tschss Danke'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Dieser Anruf wird aufgezeichnet",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Vielen Dank Frau Doktor fr Ihre Zeit Es geht um das Lipidmanagement Ihrer KHKPatienten Frau Doktor wie entscheiden Sie denn welche Therapieoption wann eingesetzt wird fr die LDLCSenkung",
+          "level": 2
+        },
+        {
+          "category": "OPENING",
+          "statement": "Dieser Anruf wird aufgezeichnet Herr",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Kasatkin hallo",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Ja hallo Schnen guten Tag Dr Kasatkin Schn dass ich Sie erreiche Mein Name ist Susi Hammert von Daichi Sankyo Dr Kasatkin das Gesprch wird aufgezeichnet Ist es okay fr Sie Also es ist anonym am Ende oder soll ich ausschalten",
+          "level": 4
+        },
+        {
+          "category": "OPENING",
+          "statement": "Ja klar Okay also es geht um Ihre KHKRisikopatienten die trotz maximaler Statintherapie und Acetamib ihre LDLZielwerte nicht erreichen Inwiefern kennen Sie diese Situation aus Ihrer tglichen Erfahrung",
+          "level": 3
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Frau Doktor die Bempiduinsure wenden Sie dann auch schon direkt an Wie ist da dann die LDLCWertsenkung Erreichen Sie immer den LDL den Zielwert",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Naja immer nicht",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Ach so ja",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Genau und dann ist halt die nchste Instanz der PCSK9 Manchmal werden ja auch die Statinen nicht vertragen dann reicht eine Bempiduinsure ohnehin als Monoprparat in der Regel nicht aus Oder in Kombination mit EZTMIP Also ja je nachdem wie die Situation ist Aber so ist sozusagen meine Kaskade",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Aha super Und speziell auch die KHKPatienten da haben Sie nochmal so ein Auge drauf wie das bei den Werten ist mit der Senkung Ja ich besorge",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Bei denen Das",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Ist",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Ja unsere Hauptklientel was die LDLSenkung anbelangt Ja",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Und Frau Doktor",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Bekannt bekannt bekannt",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Sehr gut Also um einen berblick zu bekommen Dr Kasatkin was machen Sie Also behandeln Sie schon mit Nustendi Also geben Sie diese Patientin hier",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Ja ja behandeln behandeln ja",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Und haben Sie gute Erfahrungen damit gehabt",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Noch keine Erfahrung gesammelt",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Kommt noch okay Okay und wir knnen also wichtig ist fr Sie Herr Doktor dass das von der GBA aufgenommen wird wurde und somit als notwendige Therapiestufe vor dem hochpreisigen Einsatz von PCSK9Inhibitoren Das heit fr Sie Herr Doktor Kasatkin dass es nicht dass Sie keine Angst dann haben vor Regress weil jeder Arzt kann jetzt Nustendi verschreiben und weil das ja in den Leitlinien also vor eine wichtige Vorstufe also vor dem hochpreisigen Einsatz ist das ist vielleicht wertvolle Info Und dann habe ich ein zweites Prparat das ist Lexiana bei Schlaganfall Wie sieht es hier aus Ist das bekannt bei Ihnen Wird das eingesetzt",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Bekannt bekannt bekannt ja Okay",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Schn Darf ich Sie nochmal zu einem anderen Zeitpunkt nochmal kontaktieren Dann kann ich Ihnen auch die interessanten Studien zeigen wenn Sie vor dem PC sitzen wenn Sie mal lnger Zeit haben dann probiere ich einfach nochmal Ist es okay Dr Kasatkin",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Ja ich bin im Januar eingetreten ja",
+          "level": 1
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Tschss haben Sie festgestellt dass durch so eine frhzeitige Einstellung auf die Bempiduinsure die Ergebnisse besser sind Oder haben Sie da jetzt nichts Besonderes feststellen knnen",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "Also ich habe nicht jetzt massenhaft Patienten die die Bempiduinsure bekommen Aber hufig wenn sie sie kriegen ist das manchmal sozusagen der letzte Schubs um sie in den Zielbereich zu bekommen Aber ich kann es jetzt ehrlicherweise statistisch nicht sagen Ja",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Also ich fange an standardmig mit dem Statin dann eskaliere ich mit EZTMIP Wenn das noch nicht ausreicht kommt die Bempiduinsure Und wenn das immer noch nicht ausreicht dann kommt ein PCSK9Hemmer Und",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "transcript-57",
+      "reviewed": false,
+      "text": "RE:Hi Tracey Nice to see you again HCP:Hi RE:How are you HCP:Yes really good thanks Rachael How are you Nice to see you RE:Im very well thank you Thank you for meeting with me today RE:Remind me Tracey I understand from Partridge Health that youre looking to repatriate your CCPs so I was hoping today if we could just chat about that a little bit and just ask you a few questions about that if thatd be okay HCP:Yes of course Yes RE:Great So before I go into that I just wanted to do a little bit more of a background to the lab So with your instrument setup at the moment what instruments do you have in immunology at the moment HCP:In immunology obviously weve got the Optimed 360 just the one of those RE:So with the CCPs Tracey whats your workload at the moment How many are you doing a day roughly HCP:A day Gosh I think current workload is about 250 a month that were sending away RE:And so youre sending them away to Partridge at the moment and what analyser do they run them on HCP:Theyre using the Biovance automated system so they just pop them on and theyre tracked and the turnaround times are really rapid which is fantastic RE:So in terms of bringing them back in house then in a perfect world how would you like to see the service setup for your CCPs here How would you like to run them do you think HCP:I think the main plan is because we also have automation downstairs there is the Biovance tracking system and therefore its a good crossover it minimises the comparison we need to do as were using that test already were kind of used to the results and inhouse all we have to do is a minor validation of the methods to see that were producing similar results RE:I see so turnaround times are key really for you HCP:Yes seven days for CCPs RE:Seven days currently okay So with the Optimed 360 at the moment are you running that every day HCP:Yes most days RE:And how often do you run the EliA IgG method HCP:Thats pretty much every day for a variety of tests RE:So what would you say then if we could look at say for example running your CCPs three times a day Because am I right in thinking that CCP testing its not classed as urgent per se HCP:No thats why its got quite a generous turnaround time compared to MPA PR3s and things like that RE:With it being continuous loading we could have the EliA IgG method set up every day and maybe you could prioritise three days but know that youve got the leeway and then you can feed the samples through every day and you would still be comfortably within your sevenday turnaround HCP:Sure One thing though whats the first time to result for those RE:I want to say its about an hour and a half but Im not entirely sure Funny you say that actually Ive got a brochure that talks about the process time and shows a schematic but I dont actually have any with me so sorry about that but I could maybe get one to you But that shows quite nicely the time to first result So still comfortably within your working day and working during the three days per week for CCPs you would be within your turnaround time HCP:Okay yes If you could forward that on thatd be really handy please RE:Yes So does that sounds like something that would work in terms of doing CCP three times a day do you think that would fit HCP:Yes I think at this stage depending on costs etc its worth thinking about definitely RE:And then what would be involved in that Tracey in terms of if you wanted to consider looking at them on the Optimed 360 HCP:Well obviously you know weve never got enough staff and theres never enough time is there any way you could give us some support with an evaluation Because if we were going to do a Biovance evaluation it would be minimal whereas if we were considering the 360 it would be a substantially larger study So RE:Yes Im sure we could sort something out for you thats no problem Leave that with me HCP:Okay thank you RE:So thats really great Ive got a good understanding of what youre looking to achieve So perhaps maybe the next step would be we could arrange another meeting and we can talk about it again in a little bit more detail Does that sound okay HCP:Yes absolutely RE:We can always come back HCP:Yes RE:Yes thatd be really helpful but thank you for today thats really useful to know where you are and what youre looking to achieve and yes we can come back and talk about it again HCP:Okay super RE:So thank you HCP:Yes lovely to see you RE:And you HCP:Bye RE:Byebye CO:Bye",
+      "statements": {
+        "OPENING": [
+          "Hi Tracey Nice to see you again",
+          "How are you",
+          "Im very well thank you Thank you for meeting with me today",
+          "Remind me Tracey I understand from Partridge Health that youre looking to repatriate your CCPs so I was hoping today if we could just chat about that a little bit and just ask you a few questions about that if thatd be okay"
+        ],
+        "QUESTIONING": [
+          "So with your instrument setup at the moment what instruments do you have in immunology at the moment",
+          "So with the CCPs Tracey whats your workload at the moment How many are you doing a day roughly",
+          "And so youre sending them away to Partridge at the moment and what analyser do they run them on",
+          "So in terms of bringing them back in house then in a perfect world how would you like to see the service setup for your CCPs here How would you like to run them do you think",
+          "I see so turnaround times are key really for you",
+          "So with the Optimed 360 at the moment are you running that every day",
+          "And how often do you run the EliA IgG method",
+          "So what would you say then if we could look at say for example running your CCPs three times a day Because am I right in thinking that CCP testing its not classed as urgent per se",
+          "One thing though whats the first time to result for those",
+          "So does that sounds like something that would work in terms of doing CCP three times a day do you think that would fit",
+          "And then what would be involved in that Tracey in terms of if you wanted to consider looking at them on the Optimed 360"
+        ],
+        "PRESENTING": [
+          "In immunology obviously weve got the Optimed 360 just the one of those",
+          "Theyre using the Biovance automated system so they just pop them on and theyre tracked and the turnaround times are really rapid which is fantastic",
+          "I think the main plan is because we also have automation downstairs there is the Biovance tracking system and therefore its a good crossover it minimises the comparison we need to do as were using that test already were kind of used to the results and inhouse all we have to do is a minor validation of the methods to see that were producing similar results",
+          "I want to say its about an hour and a half but Im not entirely sure Funny you say that actually Ive got a brochure that talks about the process time and shows a schematic but I dont actually have any with me so sorry about that but I could maybe get one to you But that shows quite nicely the time to first result So still comfortably within your working day and working during the three days per week for CCPs you would be within your turnaround time"
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'Yes Im sure we could sort something out for you thats no problem Leave that with me', 'outcome_statement': 'Okay thank you'}",
+          "{'closing_statement': 'So thats really great Ive got a good understanding of what youre looking to achieve So perhaps maybe the next step would be we could arrange another meeting and we can talk about it again in a little bit more detail Does that sound okay', 'outcome_statement': 'Yes absolutely'}",
+          "{'closing_statement': 'We can always come back', 'outcome_statement': 'Yes'}",
+          "{'closing_statement': 'So thank you', 'outcome_statement': 'Yes lovely to see you'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Hi Tracey Nice to see you again",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "How are you",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Im very well thank you Thank you for meeting with me today",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Remind me Tracey I understand from Partridge Health that youre looking to repatriate your CCPs so I was hoping today if we could just chat about that a little bit and just ask you a few questions about that if thatd be okay",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So with your instrument setup at the moment what instruments do you have in immunology at the moment",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So with the CCPs Tracey whats your workload at the moment How many are you doing a day roughly",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "And so youre sending them away to Partridge at the moment and what analyser do they run them on",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So in terms of bringing them back in house then in a perfect world how would you like to see the service setup for your CCPs here How would you like to run them do you think",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "I see so turnaround times are key really for you",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So with the Optimed 360 at the moment are you running that every day",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "And how often do you run the EliA IgG method",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So what would you say then if we could look at say for example running your CCPs three times a day Because am I right in thinking that CCP testing its not classed as urgent per se",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "One thing though whats the first time to result for those",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So does that sounds like something that would work in terms of doing CCP three times a day do you think that would fit",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "And then what would be involved in that Tracey in terms of if you wanted to consider looking at them on the Optimed 360",
+          "level": 4
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "In immunology obviously weve got the Optimed 360 just the one of those",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Theyre using the Biovance automated system so they just pop them on and theyre tracked and the turnaround times are really rapid which is fantastic",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "I think the main plan is because we also have automation downstairs there is the Biovance tracking system and therefore its a good crossover it minimises the comparison we need to do as were using that test already were kind of used to the results and inhouse all we have to do is a minor validation of the methods to see that were producing similar results",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "I want to say its about an hour and a half but Im not entirely sure Funny you say that actually Ive got a brochure that talks about the process time and shows a schematic but I dont actually have any with me so sorry about that but I could maybe get one to you But that shows quite nicely the time to first result So still comfortably within your working day and working during the three days per week for CCPs you would be within your turnaround time",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "transcript-2",
+      "reviewed": false,
+      "text": "RE:Hi, Tracey. Nice to see you again. HCP:Hi. RE:How are you? HCP:Yes, really good, thanks, Rachael. How are you? Nice to see you. RE:I’m very well, thank you. Thank you for meeting with me today. RE:Remind me, Tracey, I understand from Partridge Health that you’re looking to repatriate your CCPs, so I was hoping today if we could just chat about that a little bit and just ask you a few questions about that, if that’d be okay? HCP:Yes, of course. Yes. RE:Great. So before I go into that, I just wanted to do a little bit more of a background to the lab. So with your instrument set-up at the moment, what instruments do you have in immunology at the moment? HCP:In immunology, obviously we’ve got the Optimed 360, just the one of those. RE:So with the CCPs, Tracey, what’s your workload at the moment? How many are you doing a day, roughly? HCP:A day? Gosh, I think current workload is about 250 a month that we’re sending away. RE:And so you’re sending them away to Partridge at the moment, and what analyser do they run them on? HCP:They’re using the Biovance automated system, so they just pop them on and they’re tracked and the turnaround times are really rapid, which is fantastic. RE:So in terms of bringing them back in house then, in a perfect world, how would you like to see the service set-up for  your CCPs here? How would you like to run them, do you think? HCP:I think the main plan is, because we also have automation downstairs, there is the Biovance tracking system, and therefore it’s a good crossover, it minimises the comparison we need to do as we’re using that test already, we’re kind of used to the results, and, in-house, all we have to do is a minor validation of the methods to see that we’re producing similar results. RE:I see, so turnaround times are key really for you? HCP:Yes, seven days for CCPs. RE:Seven days, currently, okay. So with the Optimed 360 at the moment, are you running that every day? HCP:Yes, most days. RE:And how often do you run the EliA IgG method? HCP:That’s pretty much every day, for a variety of tests. RE:So what would you say, then, if we could look at, say, for example, running your CCPs three times a day? Because am I right in thinking that CCP testing, it’s not classed as urgent, per se? HCP:No, that’s why it’s got quite a generous turnaround time compared to MPA, PR3s and things like that. RE:With it being continuous loading, we could have the EliA IgG method set up every day, and maybe you could prioritise three days but know that you’ve got the leeway, and then you can feed the samples through every day, and you would still be comfortably within your seven-day turnaround. HCP:Sure. One thing though, what’s the first time to result for those? RE:I want to say it’s about an hour and a half, but I’m not entirely sure. Funny you say that, actually, I’ve got a brochure that talks about the process time and shows a schematic, but I don’t actually have any with me, so sorry about that, but I could maybe get one to you. But that shows quite nicely the time to first result. So still comfortably within your working day, and working during the three days per week for CCPs, you would be within your turnaround time. HCP:Okay, yes. If you could forward that on, that’d be really handy, please. RE:Yes. So does that sounds like something that would work in terms of doing CCP three times a day, do you think that would fit? HCP:Yes, I think, at this stage, depending on costs, etc., it’s worth thinking about, definitely. RE:And then, what would be involved in that, Tracey, in terms of if you wanted to consider looking at them on the Optimed 360? HCP:Well, obviously you know we’ve never got enough staff and there’s never enough time, is there any way you could give us some support with an evaluation? Because if we were going to do a Biovance evaluation, it would be minimal, whereas if we were considering the 360, it would be a substantially larger study. So… RE:Yes, I’m sure we could sort something out for you, that’s no problem. Leave that with me. HCP:Okay, thank you. RE:So that’s really great. I’ve got a good understanding of what you’re looking to achieve. So perhaps maybe the next step would be we could arrange another meeting and we can talk about it again in a little bit more detail. Does that sound okay? HCP:Yes, absolutely. ******************************** RE:We can always come back. HCP:Yes. RE:Yes, that’d be really helpful, but thank you for today, that’s really useful to know where you are and what you’re looking to achieve, and yes, we can come back and talk about it again. HCP:Okay, super. RE:So thank you. HCP:Yes, lovely to see you. RE:And you. HCP:Bye. RE:Bye-bye. CO:Bye.",
+      "statements": {
+        "OPENING": [
+          "Hi, Tracey. Nice to see you again.",
+          "How are you?",
+          "I’m very well, thank you. Thank you for meeting with me today.",
+          "Remind me, Tracey, I understand from Partridge Health that you’re looking to repatriate your CCPs, so I was hoping today if we could just chat about that a little bit and just ask you a few questions about that, if that’d be okay?"
+        ],
+        "QUESTIONING": [
+          "So with your instrument set-up at the moment, what instruments do you have in immunology at the moment?",
+          "So with the CCPs, Tracey, what’s your workload at the moment? How many are you doing a day, roughly?",
+          "And so you’re sending them away to Partridge at the moment, and what analyser do they run them on?",
+          "So in terms of bringing them back in house then, in a perfect world, how would you like to see the service set-up for your CCPs here? How would you like to run them, do you think?",
+          "I see, so turnaround times are key really for you?",
+          "So with the Optimed 360 at the moment, are you running that every day?",
+          "And how often do you run the EliA IgG method?",
+          "So what would you say, then, if we could look at, say, for example, running your CCPs three times a day? Because am I right in thinking that CCP testing, it’s not classed as urgent, per se?",
+          "One thing though, what’s the first time to result for those?",
+          "So does that sounds like something that would work in terms of doing CCP three times a day, do you think that would fit?",
+          "And then, what would be involved in that, Tracey, in terms of if you wanted to consider looking at them on the Optimed 360?"
+        ],
+        "PRESENTING": [
+          "Great. So before I go into that, I just wanted to do a little bit more of a background to the lab.",
+          "They’re using the Biovance automated system, so they just pop them on and they’re tracked and the turnaround times are really rapid, which is fantastic.",
+          "I want to say it’s about an hour and a half, but I’m not entirely sure. Funny you say that, actually, I’ve got a brochure that talks about the process time and shows a schematic, but I don’t actually have any with me, so sorry about that, but I could maybe get one to you. But that shows quite nicely the time to first result. So still comfortably within your working day, and working during the three days per week for CCPs, you would be within your turnaround time.",
+          "Yes, I’m sure we could sort something out for you, that’s no problem. Leave that with me."
+        ],
+        "CLOSING_OUTCOME": [
+          "{'closing_statement': 'So that’s really great. I’ve got a good understanding of what you’re looking to achieve. So perhaps maybe the next step would be we could arrange another meeting and we can talk about it again in a little bit more detail. Does that sound okay?', 'outcome_statement': 'Yes, absolutely.'}",
+          "{'closing_statement': 'We can always come back.', 'outcome_statement': 'Yes.'}",
+          "{'closing_statement': 'Yes, that’d be really helpful, but thank you for today, that’s really useful to know where you are and what you’re looking to achieve, and yes, we can come back and talk about it again.', 'outcome_statement': 'Okay, super.'}",
+          "{'closing_statement': 'So thank you.', 'outcome_statement': 'Yes, lovely to see you.'}",
+          "{'closing_statement': 'And you.', 'outcome_statement': 'Bye.'}",
+          "{'closing_statement': 'Bye-bye.', 'outcome_statement': 'Bye.'}"
+        ]
+      },
+      "levels": [
+        {
+          "category": "OPENING",
+          "statement": "Hi, Tracey. Nice to see you again.",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "How are you?",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "I’m very well, thank you. Thank you for meeting with me today.",
+          "level": 1
+        },
+        {
+          "category": "OPENING",
+          "statement": "Remind me, Tracey, I understand from Partridge Health that you’re looking to repatriate your CCPs, so I was hoping today if we could just chat about that a little bit and just ask you a few questions about that, if that’d be okay?",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So with your instrument set-up at the moment, what instruments do you have in immunology at the moment?",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So with the CCPs, Tracey, what’s your workload at the moment? How many are you doing a day, roughly?",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "And so you’re sending them away to Partridge at the moment, and what analyser do they run them on?",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So in terms of bringing them back in house then, in a perfect world, how would you like to see the service set-up for your CCPs here? How would you like to run them, do you think?",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "I see, so turnaround times are key really for you?",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So with the Optimed 360 at the moment, are you running that every day?",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "And how often do you run the EliA IgG method?",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So what would you say, then, if we could look at, say, for example, running your CCPs three times a day? Because am I right in thinking that CCP testing, it’s not classed as urgent, per se?",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "One thing though, what’s the first time to result for those?",
+          "level": 2
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "So does that sounds like something that would work in terms of doing CCP three times a day, do you think that would fit?",
+          "level": 4
+        },
+        {
+          "category": "QUESTIONING",
+          "statement": "And then, what would be involved in that, Tracey, in terms of if you wanted to consider looking at them on the Optimed 360?",
+          "level": 3
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Great. So before I go into that, I just wanted to do a little bit more of a background to the lab.",
+          "level": 1
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "They’re using the Biovance automated system, so they just pop them on and they’re tracked and the turnaround times are really rapid, which is fantastic.",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "I want to say it’s about an hour and a half, but I’m not entirely sure. Funny you say that, actually, I’ve got a brochure that talks about the process time and shows a schematic, but I don’t actually have any with me, so sorry about that, but I could maybe get one to you. But that shows quite nicely the time to first result. So still comfortably within your working day, and working during the three days per week for CCPs, you would be within your turnaround time.",
+          "level": 2
+        },
+        {
+          "category": "PRESENTING",
+          "statement": "Yes, I’m sure we could sort something out for you, that’s no problem. Leave that with me.",
+          "level": 1
+        }
+      ]
+    }
+  ]
+}

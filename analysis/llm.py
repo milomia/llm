@@ -30,10 +30,18 @@ def get_llm_model() -> Model:
 
 
 def get_model_settings() -> dict:
-    """Deterministic sampling for every pipeline stage. Bedrock has no seed parameter, so only Ollama gets one."""
+    """Deterministic sampling for every pipeline stage. Bedrock has no seed parameter, so only Ollama gets one.
+    LLM_MAX_TOKENS (unset by default) caps the length of each response: without it a small model that
+    starts repeating itself keeps generating until the request times out."""
     settings = {'temperature': 0}
+    max_tokens = int(os.getenv('LLM_MAX_TOKENS', '0'))
     if os.getenv('LLM_PROVIDER', 'ollama').lower() != 'bedrock':
         settings['seed'] = int(os.getenv('LLM_SEED', '42'))
+        if max_tokens:
+            # pydantic_ai sends the cap as max_completion_tokens, which Ollama ignores
+            settings['extra_body'] = {'max_tokens': max_tokens}
+    elif max_tokens:
+        settings['max_tokens'] = max_tokens
     return settings
 
 

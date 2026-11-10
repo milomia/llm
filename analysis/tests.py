@@ -144,3 +144,18 @@ class ClassificationTests(TestCase):
         self.assertIn("OPENING, QUESTIONING, PRESENTING, CLOSING_OUTCOME\n", first_prompt)
         self.assertIn("defs-1", first_prompt)
         self.assertIn("###note", first_prompt)
+
+
+class ModelSettingsTests(TestCase):
+    def test_no_response_cap_unless_configured(self):
+        from analysis.llm import get_model_settings
+        with patch.dict("os.environ", {"LLM_PROVIDER": "ollama"}, clear=False) as env:
+            env.pop("LLM_MAX_TOKENS", None)
+            self.assertEqual(get_model_settings(), {"temperature": 0, "seed": 42})
+
+    def test_response_cap_is_sent_in_the_form_each_provider_honours(self):
+        from analysis.llm import get_model_settings
+        with patch.dict("os.environ", {"LLM_PROVIDER": "ollama", "LLM_MAX_TOKENS": "500", "LLM_SEED": "42"}):
+            self.assertEqual(get_model_settings(), {"temperature": 0, "seed": 42, "extra_body": {"max_tokens": 500}})
+        with patch.dict("os.environ", {"LLM_PROVIDER": "bedrock", "LLM_MAX_TOKENS": "500"}):
+            self.assertEqual(get_model_settings(), {"temperature": 0, "max_tokens": 500})
