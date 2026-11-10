@@ -1,5 +1,3 @@
-import re
-
 from dotenv import load_dotenv
 from django.views.decorators.csrf import csrf_exempt
 
@@ -16,9 +14,8 @@ from analysis import api_schemas
 
 from analysis.aiService.weaviateDb import storeData
 from analysis.serializers import TranscriptionSerializer
-from analysis.models import Transcription, StatementClassification, StatementLevelPrompt, FinalStatementWithLevel
-from analysis.utils import create_overlapping_segments, get_statements_data, get_important_note_and_parser, \
-    clear_previous_results
+from analysis.models import Transcription, StatementLevelPrompt, FinalStatementWithLevel
+from analysis.utils import create_overlapping_segments
 from analysis.langfuse_client import create_trace
 
 from pydantic_ai import Agent
@@ -28,6 +25,7 @@ from pydantic_ai.output import NativeOutput
 from .outputParser import EvaluationResult
 from .synctask import sync_classify_segments
 from .tasks import save_transcription, classify_segments
+from .classification import classify_transcription
 from .levelling import level_category
 from .sentiment import analyze_sentiment, get_sentiment_results
 
@@ -36,25 +34,6 @@ load_dotenv()
 # DRF validation errors: {"<field>": ["<message>", ...]}
 VALIDATION_ERROR = OpenApiResponse(OpenApiTypes.OBJECT, description="Invalid input; maps each field to its error messages.")
 
-
-def extract_msl_statements(transcript):
-    """
-    Splits transcript by speaker label and returns only MSL turns,
-    one per line, preserving original text.
-    """
-    # Split on speaker labels — handles MSL, Dr, DR, JDr, NS, ALL
-    parts = re.split(r'(MSL|DR|Dr|JDr|NS|ALL)', transcript)
-
-    msl_lines = []
-    for i, part in enumerate(parts):
-        if part == 'MSL' and i + 1 < len(parts):
-            text = parts[i + 1].strip()
-            if text:
-                msl_lines.append(f"MSL {text}")
-
-    return "\n".join(msl_lines)
-
-# set_debug(True)
 
 class ClassificationView(APIView):
 
@@ -75,109 +54,14 @@ class ClassificationView(APIView):
         except Transcription.DoesNotExist:
             return Response({"error": f"Transcription {transcript_id} not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        clear_previous_results(transcript)
-
-        # Create Langfuse trace for classification
         trace = create_trace(
             name="classification",
             session_id=str(transcript_id),
             metadata={"transcript_id": transcript_id}
         )
-
-        total_segments = len(transcript.segments)
-
-        for index, segment in enumerate(transcript.segments):
-
-            # Create span for segment processing
-            segment_span = trace.span(
-                name=f"segment_{index + 1}",
-                metadata={"segment_index": index + 1, "total_segments": total_segments}
-            )
-
-            # Pre-process: strip HCP lines, keep only MSL turns
-            msl_segment = extract_msl_statements(segment)
-
-            # INITIAL_PROCESSING
-            # Get all the statement category types
-            statement_type_considered, different_statement_definition = get_statements_data(index + 1, total_segments, msl_segment)
-            important_note, agent = get_important_note_and_parser(statement_type_considered, index + 1, total_segments)
-
-            # Build the prompt for pydantic_ai
-            user_prompt = (
-                    "Respond with ONLY a JSON object, no explanation, no markdown, no preamble. "
-                    "Return ONLY valid JSON. Do not include explanations, markdown, or extra text. "
-                    "READ THE " + str(index + 1) + " PART OF THE TRANSCRIPT (WHOLE TRANSCRIPT HAS TOTAL " + str(
-                total_segments)
-                    + " PARTS, with overlaps of 200 words in each part).\n"
-                    + " CRITICAL: Only classify statements made by the REP (labelled MSL). "
-                      " Never include HCP, DR, NS, or JDr statements in any category."
-                    + " CRITICAL: Copy each statement EXACTLY as it appears in the transcript. " 
-                      " Do NOT paraphrase, summarise, truncate, or add ellipsis (...). "
-                      " The statement field must contain the complete original text word for word. "
-                      "The conversation is between a representative (REP) and one or more healthcare professionals (HCPs).\n"
-                      "Read the transcript part line by line:\n<transcript>\n{transcript}\n</transcript>\n\n"
-                      "Objective: Review and classify dialogues from interactions between pharmaceutical sales representatives (REPs) and healthcare professionals (HCPs). "
-                      "Each dialogue may belong to MORE THAN ONE OR NONE of the following categories (based on its content, intention and definition of the category):\n"
-                    + ", ".join(statement_type_considered) + "\n"
-                     "This requires discerning the REP's strategic approach towards initiating the conversation, "
-                     "engaging in inquiry, presenting information, and steering towards a productive conclusion.\n\n"
-                     "Detailed Definition for Classification:\n"
-                     "<definitions>\n{different_statement_definition}\n</definitions>\n\n"
-                     "Important Notes:\n"
-                     "<notes>\n{important_note}\n</notes>\n\n"
-                     "Maintain the original transcript form for authenticity, "
-                     "focusing on the accuracy and relevance of each classification.\n\n"
-                     "Assignment Execution: Thoroughly proceed through the transcript, "
-                     "identifying and classifying each REP dialogue according to the category definitions, examples, and invalid examples. "
-                     "Take care of the guidelines and notes provided. Utilize a nuanced approach to determine the strategic intent "
-                     "and outcome of each dialogue within the structured interaction framework.\n\n"
-            )
-
-            # Create span for AI agent call
-            agent_span = segment_span.span(name="agent_classification")
-
-            result = agent.run_sync(user_prompt.format(
-                transcript=msl_segment or segment,
-                different_statement_definition=different_statement_definition,
-                important_note=important_note
-            ))
-            response = result.output
-            print(response)
-            
-            # Log agent call details
-            agent_span.end(
-                output=str(response),
-                metadata={
-                    "statement_types": statement_type_considered,
-                    "segment_length": len(msl_segment or segment)
-                }
-            )
-
-            category_map = {
-                'OPENING': getattr(response, 'opening_statements', []),
-                'QUESTIONING': getattr(response, 'questioning_statements', []),
-                'PRESENTING': getattr(response, 'presenting_statements', []),
-                'CLOSING_OUTCOME': getattr(response, 'closing_outcome_sentences', []),
-            }
-
-            for category, statements in category_map.items():
-                print("Creating objects for:", category)
-                for statement in statements:
-                    classification_obj = StatementClassification(
-                        category=category,
-                        transcription=transcript,
-                        statement=str(statement),
-                        segment_number=index + 1
-                    )
-                    classification_obj.save()
-                print("Finished creating Classification objects for:", category)
-            
-            # End segment span
-            segment_span.end()
-
-        # End trace
+        total_segments = classify_transcription(transcript, trace)
         trace.end(output={"status": "completed", "total_segments": total_segments})
-        
+
         return Response({"message": "action is finished"}, status=status.HTTP_201_CREATED)
 
 class TranscriptionView(APIView):

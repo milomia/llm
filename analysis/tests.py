@@ -107,3 +107,40 @@ class LevellingTests(TestCase):
         self.assertEqual(FinalStatementWithLevel.objects.filter(transcription=self.t).count(), 1)
         self.b.refresh_from_db()
         self.assertFalse(self.b.levelDone)
+
+
+class ClassificationTests(TestCase):
+    @patch("analysis.classification.get_important_note_and_parser")
+    @patch("analysis.classification.get_statements_data")
+    def test_replaces_old_rows_and_saves_statements_per_segment(self, get_statements_data, get_parser):
+        from analysis.classification import classify_transcription
+        from analysis.outputParser import StatementParser, StatementParserWithoutOpening
+        t = Transcription.objects.create(text="x", segments=["first part {braces}", "second part"])
+        StatementClassification.objects.create(transcription=t, category="OPENING", statement="stale", segment_number=1)
+        get_statements_data.side_effect = [
+            (["OPENING", "QUESTIONING", "PRESENTING", "CLOSING_OUTCOME"], "defs-1"),
+            (["QUESTIONING", "PRESENTING", "CLOSING_OUTCOME"], "defs-2"),
+        ]
+        closing = {"closing_statement": "bye", "outcome_statement": "ok"}
+        agent = MagicMock()
+        agent.run_sync.side_effect = [
+            MagicMock(output=StatementParser(
+                opening_statements=["hello"], questioning_statements=["how?"],
+                presenting_statements=[], closing_outcome_sentences=[])),
+            MagicMock(output=StatementParserWithoutOpening(
+                questioning_statements=[], presenting_statements=["data"], closing_outcome_sentences=[closing])),
+        ]
+        get_parser.return_value = ("note", agent)
+
+        self.assertEqual(classify_transcription(t), 2)
+
+        rows = set(StatementClassification.objects.filter(transcription=t)
+                   .values_list("category", "statement", "segment_number"))
+        self.assertEqual(rows, {("OPENING", "hello", 1), ("QUESTIONING", "how?", 1),
+                                ("PRESENTING", "data", 2), ("CLOSING_OUTCOME", str(closing), 2)})
+        first_prompt = agent.run_sync.call_args_list[0].args[0]
+        self.assertIn("READ THE 1 PART OF THE TRANSCRIPT (WHOLE TRANSCRIPT HAS TOTAL 2 PARTS", first_prompt)
+        self.assertIn("<transcript>\nfirst part {braces}\n</transcript>", first_prompt)
+        self.assertIn("OPENING, QUESTIONING, PRESENTING, CLOSING_OUTCOME\n", first_prompt)
+        self.assertIn("defs-1", first_prompt)
+        self.assertIn("###note", first_prompt)
