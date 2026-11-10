@@ -14,6 +14,13 @@ CATEGORY_CHOICES = [
         ('PRESENTING', 'Presenting'),
         ('CLOSING_OUTCOME', 'Closing & Outcome'),
     ]
+SENTIMENT_CHOICES = [
+        ('positive', 'Positive'),
+        ('neutral', 'Neutral'),
+        ('negative', 'Negative'),
+        ('no_response', 'No HCP response'),
+    ]
+
 class Transcription(models.Model):
     text = models.TextField()
     segments = ArrayField(
@@ -33,6 +40,10 @@ class StatementClassification(models.Model):
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     statement = models.TextField()
     levelDone = models.BooleanField(default=False)
+    sentimentDone = models.BooleanField(default=False)
+    hcp_sentiment = models.CharField(max_length=12, choices=SENTIMENT_CHOICES, blank=True, null=True)
+    hcp_sentiment_confidence = models.IntegerField(blank=True, null=True)
+    hcp_sentiment_reason = models.TextField(blank=True, null=True)
 
     def transcription_id(self):
         return self.transcription.id

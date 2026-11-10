@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import ClassificationView, FullSyncProcessView, TranscriptionView, VectorDataView, LevellingDataView, highest_level_statements, \
-    FullProcessView, highest_level_statements_docker_results, transcription_status_update
+    FullProcessView, SentimentView, sentiment_results, highest_level_statements_docker_results, transcription_status_update
 
 urlpatterns = [
     path('classification/', ClassificationView.as_view(), name='classification'),
@@ -10,6 +10,8 @@ urlpatterns = [
     path('rating/', LevellingDataView.as_view(), name='rating'),
     path('results/<int:transcript_id>/', highest_level_statements, name='highest_level_statements'),
     path('docker-results/<int:transcript_id>/', highest_level_statements_docker_results, name='highest_level_statements_docker'),
+    path('sentiment/', SentimentView.as_view(), name='sentiment'),
+    path('sentiment/<int:transcript_id>/', sentiment_results, name='sentiment_results'),
     path('process/', FullProcessView.as_view(), name='full_process_single_api'),
     path('sync-process/', FullSyncProcessView.as_view(), name='full_sync_process_single_api'),
 ]
