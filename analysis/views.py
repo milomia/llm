@@ -15,7 +15,7 @@ from analysis import api_schemas
 from analysis.aiService.weaviateDb import storeData
 from analysis.serializers import TranscriptionSerializer
 from analysis.models import Transcription, StatementLevelPrompt, FinalStatementWithLevel
-from analysis.utils import create_overlapping_segments
+from analysis.utils import create_overlapping_segments, split_closing_outcome
 from analysis.langfuse_client import create_trace
 
 from pydantic_ai import Agent
@@ -121,6 +121,8 @@ class TranscriptionView(APIView):
 
 def transcription_status_update(request, transcript_id):
     obj = Transcription.objects.filter(id=transcript_id).first()
+    if obj is None:
+        return JsonResponse({"error": f"Transcription {transcript_id} not found"}, status=404)
     obj.docker_feteched = True
     obj.save()
     return JsonResponse({"message": "done"}, safe=False)
@@ -255,7 +257,7 @@ def sentiment_results(request, transcript_id):
 
 @csrf_exempt
 def highest_level_statements(request, transcript_id):
-    categories = ['OPENING', 'QUESTIONING', 'PRESENTING', 'CLOSING', 'OUTCOME']
+    categories = ['OPENING', 'QUESTIONING', 'PRESENTING', 'CLOSING_OUTCOME']
     results = []
 
     for category in categories:
@@ -302,84 +304,63 @@ class FullProcessView(APIView):
             return JsonResponse(serializer.errors, safe=False, status=status.HTTP_400_BAD_REQUEST)
 
 def getDockerOutput(transcript_id):
-    categories = ['OPENING', 'QUESTIONING', 'PRESENTING', 'CLOSING', 'OUTCOME']
     category_map = {
         "OPENING": "Opening",
         "QUESTIONING": "Questioning",
         "PRESENTING": "Presenting",
-        "CLOSING": "Closing",
-        "OUTCOME": "Outcome",
+        "CLOSING_OUTCOME": "Closing & Outcome",
     }
     results = []
     consolidated_score = []
 
-    for category in categories:
-        # Find the highest level statement in each category
-        highest_level = \
-        FinalStatementWithLevel.objects.filter(transcription__id=transcript_id, category=category).aggregate(
-            Max('level'))['level__max']
-        if highest_level is not None:
-            statement = FinalStatementWithLevel.objects.filter(transcription__id=transcript_id, category=category,
-                                                               level=highest_level).first()
-            consolidated_score.append({
-                "category": category_map[statement.category],
-                "score": statement.level
-            })
+    for category, label in category_map.items():
+        all_statements = list(FinalStatementWithLevel.objects.filter(transcription__id=transcript_id, category=category))
+        levels = [sentence.level for sentence in all_statements if sentence.level is not None]
+        if not levels:
+            continue
+        highest_level = max(levels)
+        consolidated_score.append({"category": label, "score": highest_level})
 
-            all_statements = FinalStatementWithLevel.objects.filter(transcription__id=transcript_id, category=category).all()
-            if category == 'CLOSING' or category == 'OUTCOME':
-                sentences = [
-                    {
+        if category == 'CLOSING_OUTCOME':
+            # Each row is a closing (REP) / outcome (HCP) pair levelled together: emit them in pairs.
+            sentences = []
+            for sentence in all_statements:
+                closing, outcome = split_closing_outcome(sentence.statement)
+                for part, text, speaker in (("Closing", closing, "REP"), ("Outcome", outcome, "HCP")):
+                    if not text:
+                        continue
+                    sentences.append({
                         # FIXME: change the values to actual after CTA
                         "call_to_action": ["No CTA"],
                         "call_to_action_confidence": "0",
                         "criteria": str(sentence.level),
-                        "category": category_map[sentence.category],
+                        "category": part,
                         "criteria_confidence_score": sentence.confidence_score,
-                        "sentence": sentence.statement,
-                        "speaker": "REP"
-                    }
-                    for sentence in all_statements
-                ]
-            else:
-                sentences = [
-                    {
-                        "criteria": str(sentence.level),
-                        "criteria_confidence_score": sentence.confidence_score,
-                        "sentence": sentence.statement,
-                        "speaker": "REP"
-                    }
-                    for sentence in all_statements
-                ]
-            transcript_chunk = " ".join([sentence['sentence'] for sentence in sentences])
-            if category == 'CLOSING':
-                results.append({
-                    "category": "Closing & Outcome",
-                    "category_confidence_score": 1,
-                    "consolidated_close_score": statement.level,
-                    "sentences": sentences,
-                    "transcript_chunks": transcript_chunk
-                })
-            elif category == 'OUTCOME':
-                closing_results = results[-1]
-                closing_results['consolidated_outcome_score'] = statement.level
-                closing_outcome_statements = []
-                for closing_statement in closing_results['sentences']:
-                    # for closing and outcome in pairs
-                    closing_outcome_statements.append(closing_statement)
-                    closing_outcome_statements.append(sentences[0])
-                    sentences = sentences[1:]
+                        "sentence": text,
+                        "speaker": speaker
+                    })
+        else:
+            sentences = [
+                {
+                    "criteria": str(sentence.level),
+                    "criteria_confidence_score": sentence.confidence_score,
+                    "sentence": sentence.statement,
+                    "speaker": "REP"
+                }
+                for sentence in all_statements
+            ]
 
-                closing_results['sentences'] = closing_outcome_statements
-                # print(closing_results)
-                # continue
-            else:
-                results.append({
-                    "category": category_map[statement.category],
-                    "category_confidence_score": 1,
-                    "sentences": sentences,
-                    "transcript_chunks": transcript_chunk
-                })
+        result = {
+            "category": label,
+            "category_confidence_score": 1,
+            "sentences": sentences,
+            "transcript_chunks": " ".join(sentence['sentence'] for sentence in sentences)
+        }
+        if category == 'CLOSING_OUTCOME':
+            # The pair gets a single level, so it is both the close and the outcome score.
+            result["consolidated_close_score"] = highest_level
+            result["consolidated_outcome_score"] = highest_level
+        results.append(result)
 
     responseDict = {
         "consolidate_scores": consolidated_score,

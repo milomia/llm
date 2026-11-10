@@ -1,3 +1,5 @@
+import ast
+
 from pydantic_ai import Agent
 from analysis.llm import get_llm_model, make_agent
 from pydantic_ai.output import NativeOutput
@@ -118,3 +120,15 @@ def clear_previous_results(transcription):
     Levels and sentiment are derived from the classified rows, so they are cleared with them."""
     FinalStatementWithLevel.objects.filter(transcription=transcription).delete()
     StatementClassification.objects.filter(transcription=transcription).delete()
+
+
+def split_closing_outcome(statement):
+    """A CLOSING_OUTCOME statement is stored as str({'closing_statement': ..., 'outcome_statement': ...}).
+    Returns (closing, outcome); text that is not such a dict is treated as the closing statement."""
+    try:
+        pair = ast.literal_eval(statement)
+    except (ValueError, SyntaxError):
+        pair = None
+    if not isinstance(pair, dict):
+        return statement, ""
+    return str(pair.get('closing_statement') or ""), str(pair.get('outcome_statement') or "")
