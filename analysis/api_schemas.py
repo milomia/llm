@@ -12,13 +12,16 @@ class TranscriptTextRequest(serializers.Serializer):
 
 
 class TranscriptUploadRequest(serializers.Serializer):
-    file = serializers.FileField(required=False, help_text="UTF-8 text file containing the transcript.")
+    file = serializers.FileField(required=False, help_text="UTF-8 text file or PDF containing the transcript. "
+                                                           "The type is decided by the file's content, not its name.")
     text = serializers.CharField(required=False, help_text="Transcript text, used when no file is uploaded.")
 
 
 class TranscriptCreatedResponse(serializers.Serializer):
     transcript_id = serializers.IntegerField()
     number_of_segments = serializers.IntegerField()
+    warnings = serializers.ListField(child=serializers.CharField(), required=False,
+                                     help_text="Notes from reading the file, e.g. hidden text removed from a PDF.")
 
 
 class PendingTranscriptsResponse(serializers.Serializer):

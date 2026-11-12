@@ -15,6 +15,7 @@ from analysis import api_schemas
 from analysis.aiService.weaviateDb import storeData
 from analysis.serializers import TranscriptionSerializer
 from analysis.models import Transcription, StatementLevelPrompt, FinalStatementWithLevel
+from analysis.uploads import UploadRejected, transcript_from_upload
 from analysis.utils import create_overlapping_segments, split_closing_outcome
 from analysis.langfuse_client import create_trace
 
@@ -78,13 +79,17 @@ class TranscriptionView(APIView):
 
     @extend_schema(
         summary="Upload a transcript",
-        description="Send the transcript as a multipart `file` upload, or as `text` (JSON or form). "
+        description="Send the transcript as a multipart `file` upload (UTF-8 text or a PDF), or as `text` "
+                    "(JSON or form). PDFs are read by a secure reader: scanned for active content such as "
+                    "JavaScript, size-limited, parsed in a separate process, and stripped of hidden text. "
                     "The text is split into overlapping segments and saved.",
         request={
             "multipart/form-data": api_schemas.TranscriptUploadRequest,
             "application/json": api_schemas.TranscriptTextRequest,
         },
-        responses={201: api_schemas.TranscriptCreatedResponse, 400: VALIDATION_ERROR},
+        responses={201: api_schemas.TranscriptCreatedResponse, 400: VALIDATION_ERROR,
+                   413: OpenApiResponse(description="File too large"),
+                   422: OpenApiResponse(description="PDF rejected (unsafe, unreadable, or no extractable text)")},
         tags=["transcripts"],
     )
     def post(self, request):
@@ -94,11 +99,12 @@ class TranscriptionView(APIView):
 
         # Accept either an uploaded file (multipart "file") or JSON/form "text"
         uploaded = request.FILES.get('file')
+        warnings = []
         if uploaded:
             try:
-                text = uploaded.read().decode('utf-8')
-            except UnicodeDecodeError:
-                return Response({"file": ["File must be UTF-8 encoded text."]}, status=status.HTTP_400_BAD_REQUEST)
+                text, warnings = transcript_from_upload(uploaded)
+            except UploadRejected as exc:
+                return Response({"file": [exc.message]}, status=exc.status_code)
         else:
             text = request.data.get('text')
         if not text:
@@ -106,7 +112,6 @@ class TranscriptionView(APIView):
 
         # Plain dict: request.data is an immutable QueryDict for form/multipart requests
         trans_obj = {'text': text}
-        print(trans_obj)
         # Create overlapping segments
         segments = create_overlapping_segments(text, segment_length, overlap)
 
@@ -116,7 +121,8 @@ class TranscriptionView(APIView):
             instance = serializer.save()
             instance.segments = segments
             instance.save()
-            return Response({"transcript_id": instance.id, "number_of_segments": len(instance.segments)}, status=status.HTTP_201_CREATED)
+            return Response({"transcript_id": instance.id, "number_of_segments": len(instance.segments),
+                             "warnings": warnings}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def transcription_status_update(request, transcript_id):

@@ -36,7 +36,7 @@ python manage.py shell
 ```bash
 python manage.py test analysis
 ```
-Unit tests live in `analysis/tests.py`; endpoint tests in `analysis/test_endpoints.py` (driven by `data/request.json`, with the LLM, Weaviate, Celery and Langfuse faked). Use the Django runner: `pytest.ini` points at a non-existent `core.settings`.
+Unit tests live in `analysis/tests.py`; endpoint tests in `analysis/test_endpoints.py` (driven by `data/request.json`, with the LLM, Weaviate, Celery and Langfuse faked); upload and PDF-security tests in `analysis/test_pdf_upload.py` (PDFs generated with PyMuPDF, read by the real sandboxed reader). Use the Django runner: `pytest.ini` points at a non-existent `core.settings`.
 
 ### Eval
 ```bash
@@ -69,6 +69,13 @@ With the server running, the OpenAPI schema is at `/api/schema/`, Swagger UI at 
 - `BEDROCK_MODEL_ID` (default `us.anthropic.claude-haiku-4-5-20251001-v1:0`), `AWS_REGION` (default `us-east-1`)
 - `LLM_SEED` (default `42`, Ollama only — Bedrock has no seed), `LLM_RETRIES` (default `3`, output-validation retries)
 - `LLM_MAX_TOKENS` (unset by default) — cap on each response's length. Without it a local model that starts repeating itself generates until the 10-minute request timeout; `run_eval` always sets it
+
+PDF upload security (see "Uploads and PDFs" below):
+- `MAX_UPLOAD_MB` (default `25`) — largest accepted upload
+- `INGEST_CLAMD_HOST` (+ `INGEST_CLAMD_PORT`, default `3310`) or `INGEST_CLAMD_SOCKET` — turns on a ClamAV virus scan of every uploaded file, before any parsing. Off when unset. It fails closed: an unreachable or erroring scanner refuses the upload with `503`; a detection returns `422`. `INGEST_CLAMD_TIMEOUT` (default `30` s). Test with the EICAR file against a real clamd; the unit tests use a fake one
+- `INGEST_PDF_POLICY` — `reject` (default) refuses PDFs containing JavaScript, launch actions, embedded files etc.; `warn` accepts them with a warning
+- `INGEST_PDF_SANDBOX` — `0` parses PDFs in the server process instead of a child process (default `1`; the sandbox adds about 0.2 s per PDF)
+- `INGEST_PDF_MAX_PAGES` (500), `INGEST_PDF_MAX_OBJECTS` (200000), `INGEST_PDF_TIMEOUT` (60 s), `INGEST_PDF_MAX_MEMORY_MB` (2048; not enforced on macOS), `INGEST_OCR_LANG` (`eng`; OCR only runs if Tesseract is installed)
 
 WatsonX vars (`WATSONX_APIKEY`, `PROJECT_ID`, `IBM_WATSONX_URL`) in `.envold` and the Azure OpenAI vars in `env.sample` are unused.
 
@@ -113,13 +120,19 @@ There are two parallel implementations of the full pipeline:
 
 | Path | Purpose |
 |---|---|
-| `transcription/`, `transcription/<id>/` | Upload/list transcripts, status update |
+| `transcription/`, `transcription/<id>/` | Upload (text or PDF) / list transcripts, status update |
 | `classification/` | Stage 1 only |
 | `rating/` | Stage 2 only |
 | `sentiment/`, `sentiment/<id>/` | Stage 3 run / results |
 | `process/`, `sync-process/` | Full pipeline (async / sync) |
 | `results/<id>/`, `docker-results/<id>/` | Highest-level statements per category |
 | `vectorDb/` | Read/store reviewed examples in Weaviate |
+
+### Uploads and PDFs
+
+`POST /api/transcription/` accepts `text`, or a `file` that is UTF-8 text **or a PDF** (`analysis/uploads.py`). The file type is decided by content, not name: anything starting with `%PDF-` goes through the secure PDF reader even if it is called `notes.txt`. Uploads are size-capped before reading (`413`); an unsafe, unreadable or text-less PDF returns `422` with the reason in `{"file": [...]}` and nothing is saved; reading notes (e.g. hidden text removed) come back in `warnings`.
+
+The reader is the `ingestion/` package, the PDF subset of the AIMate project's package (`models.py`, `textutil.py`, `pdf.py`, `secure.py`, `worker.py` are unchanged copies; keep them in sync by hand). It: pre-scans for JavaScript, launch actions, embedded files, rich media, XFA and form submission (including escaped names); enforces page/object limits; parses in a child process with a scrubbed environment, timeout and no network; removes hidden text (white on a plain background, or tiny). The child-process limits are not a security boundary: for hostile input run the service in a container with no network, a read-only filesystem and memory limits. PyMuPDF is AGPL-licensed: check that suits how this is distributed.
 
 ### Prompt configuration via database
 
@@ -142,6 +155,8 @@ The hardcoded constants in `analysis/aiService/constants.py` are the domain defi
 | `analysis/sentiment.py` | Stage 3 HCP sentiment |
 | `analysis/classification.py` | Shared stage 1 classification (`classify_transcription()`) |
 | `analysis/evaluation.py` | Eval scoring; run via `analysis/management/commands/run_eval.py` |
+| `analysis/uploads.py` | Upload to transcript text: size cap, content-based type check, secure PDF reading |
+| `ingestion/` | Secure PDF reader (copy of the AIMate package's PDF subset) |
 | `analysis/utils.py` | Segment creation, prompt/parser selection, Weaviate example lookup, result clearing |
 | `analysis/outputParser.py` | Pydantic models for structured LLM output |
 | `analysis/api_schemas.py` | OpenAPI schema definitions |
